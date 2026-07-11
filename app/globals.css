@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --soloblack: #000000;
+    --soloyellow: #FFD700;
+    --soloyellow-dark: #E5C100;
+    --soloyellow-light: #FFE44D;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+body {
+  @apply bg-soloblack text-white;
+}
+
+.gradient-yellow {
+  @apply bg-gradient-to-r from-soloyellow to-soloyellow-dark;
+}
