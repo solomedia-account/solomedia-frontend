@@ -1,5 +1,3 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import { api } from '@/lib/api';
 import { Calendar, Eye, Share2, Bookmark } from 'lucide-react';
@@ -7,7 +5,7 @@ import Image from 'next/image';
 
 async function getArticle(slug: string) {
   try {
-    const article = await api.get(`/articles/${slug}`);
+    const article = await api.get(`/articles/${slug}`, undefined, true);
     return article;
   } catch (error) {
     return null;
@@ -16,7 +14,7 @@ async function getArticle(slug: string) {
 
 async function getRelatedArticles(categoryId: string, currentArticleId: string) {
   try {
-    const data = await api.get(`/articles?category=${categoryId}&limit=4`);
+    const data = await api.get(`/articles?category=${categoryId}&limit=4`, undefined, true);
     return (data.articles || data).filter((a: any) => a.id !== currentArticleId).slice(0, 3);
   } catch (error) {
     return [];
@@ -45,10 +43,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   });
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1">
+    <main className="flex-1">
         {/* Article Header */}
         <article className="bg-gray-950">
           <div className="container mx-auto px-4 py-12">
@@ -156,8 +151,5 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           </section>
         )}
       </main>
-
-      <Footer />
-    </div>
   );
 }

@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { profileApi } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Camera, MapPin, Globe, Link as LinkIcon, Edit2, Save, X } from 'lucide-react';
 
 export default function ProfilePage() {
@@ -88,10 +86,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1 bg-gray-950 py-12">
+    <main className="flex-1 bg-gray-950 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Profile Header */}
@@ -317,8 +312,5 @@ export default function ProfilePage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 }

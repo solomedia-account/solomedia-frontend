@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { articlesApi, categoriesApi, uploadApi } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Save, ArrowLeft, Eye, FileText, Tag, Image as ImageIcon, Upload, Video, Link as LinkIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -261,10 +259,7 @@ export default function CreateArticlePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1 bg-gray-950 py-12">
+    <main className="flex-1 bg-gray-950 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Header */}
@@ -531,8 +526,5 @@ export default function CreateArticlePage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 }

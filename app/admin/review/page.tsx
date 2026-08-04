@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { articlesApi } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { ArrowLeft, Check, X, Eye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -70,10 +68,7 @@ export default function ReviewArticlesPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1 bg-gray-950 py-12">
+    <main className="flex-1 bg-gray-950 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8 flex items-center space-x-4">
@@ -105,7 +100,7 @@ export default function ReviewArticlesPage() {
                       <div className="flex-1">
                         <h3 className="text-xl font-semibold text-white mb-2">{article.title}</h3>
                         <p className="text-gray-400 text-sm mb-4">
-                          By {article.author?.name} • {new Date(article.createdAt).toLocaleDateString()}
+                          By {article.author?.name} • {new Date(article.createdAt).toLocaleDateString('en-US')}
                         </p>
                         <p className="text-gray-300 line-clamp-3">{article.excerpt}</p>
                       </div>
@@ -145,8 +140,5 @@ export default function ReviewArticlesPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 }

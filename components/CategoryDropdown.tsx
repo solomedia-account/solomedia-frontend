@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo, useMemo } from 'react';
 import { articlesApi } from '@/lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,38 +12,38 @@ interface CategoryDropdownProps {
   onClose: () => void;
 }
 
-export default function CategoryDropdown({ categoryId, isOpen, onClose }: CategoryDropdownProps) {
+function CategoryDropdown({ categoryId, isOpen, onClose }: CategoryDropdownProps) {
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (isOpen && categoryId) {
-      loadArticles();
-    }
-  }, [isOpen, categoryId]);
-
-  const loadArticles = async () => {
+  const loadArticles = useCallback(async () => {
     setLoading(true);
     try {
       const data = await articlesApi.getArticlesByCategory(categoryId, 10);
       setArticles(data.articles || data);
     } catch (error) {
-      console.error('Failed to load articles:', error);
+      setArticles([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, [categoryId]);
 
-  const handleMouseLeave = () => {
+  useEffect(() => {
+    if (isOpen && categoryId) {
+      loadArticles();
+    }
+  }, [isOpen, categoryId, loadArticles]);
+
+  const handleMouseLeave = useCallback(() => {
     if (timeoutId) clearTimeout(timeoutId);
     const id = setTimeout(onClose, 500);
     setTimeoutId(id);
-  };
+  }, [timeoutId, onClose]);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     if (timeoutId) clearTimeout(timeoutId);
-  };
+  }, [timeoutId]);
 
   if (!isOpen) return null;
 
@@ -75,7 +75,9 @@ export default function CategoryDropdown({ categoryId, isOpen, onClose }: Catego
                         src={article.featuredImage}
                         alt={article.title}
                         fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
                         className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                     </div>
@@ -98,7 +100,7 @@ export default function CategoryDropdown({ categoryId, isOpen, onClose }: Catego
                     <div className="flex items-center justify-between text-gray-400 text-xs">
                       <span className="flex items-center space-x-2">
                         <Clock size={12} />
-                        <span>{new Date(article.publishedAt || article.createdAt).toLocaleDateString()}</span>
+                        <span>{new Date(article.publishedAt || article.createdAt).toLocaleDateString('en-US')}</span>
                       </span>
                       <span className="flex items-center space-x-2">
                         <Eye size={12} />
@@ -121,3 +123,5 @@ export default function CategoryDropdown({ categoryId, isOpen, onClose }: Catego
     </div>
   );
 }
+
+export default memo(CategoryDropdown);

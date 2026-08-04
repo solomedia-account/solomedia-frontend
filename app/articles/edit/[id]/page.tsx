@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { articlesApi, categoriesApi, uploadApi } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Save, ArrowLeft, Eye, FileText, Tag, Image as ImageIcon, Upload, Video, Link as LinkIcon } from 'lucide-react';
 import { useRouter, useParams } from 'next/navigation';
 
@@ -61,13 +59,14 @@ export default function EditArticlePage() {
 
     try {
       const data = await articlesApi.getArticleById(articleId, token);
+      const tagsArray = typeof data.tags === 'string' ? JSON.parse(data.tags) : (data.tags || []);
       setFormData({
         title: data.title,
         slug: data.slug,
         excerpt: data.excerpt,
         content: data.content,
         categoryId: data.categoryId,
-        tags: data.tags?.join(', ') || '',
+        tags: tagsArray.join(', ') || '',
         featuredImage: data.featuredImage || '',
         status: data.status,
         isFeatured: data.isFeatured || false,
@@ -145,6 +144,11 @@ export default function EditArticlePage() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await handleSubmit();
   };
 
   const handleSaveDraft = async () => {
@@ -292,23 +296,19 @@ export default function EditArticlePage() {
 
   if (notFound) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1 bg-gray-950 py-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-3xl font-bold text-white mb-4">Article Not Found</h1>
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="text-soloyellow hover:text-soloyellow-dark"
-              >
-                Back to Dashboard
-              </button>
-            </div>
+      <main className="flex-1 bg-gray-950 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-3xl font-bold text-white mb-4">Article Not Found</h1>
+            <button
+              onClick={() => router.push('/dashboard')}
+              className="text-soloyellow hover:text-soloyellow-dark"
+            >
+              Back to Dashboard
+            </button>
           </div>
-        </main>
-        <Footer />
-      </div>
+        </div>
+      </main>
     );
   }
 
@@ -325,10 +325,7 @@ export default function EditArticlePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1 bg-gray-950 py-12">
+    <main className="flex-1 bg-gray-950 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Header */}
@@ -368,7 +365,7 @@ export default function EditArticlePage() {
             </div>
 
             {!preview ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleFormSubmit} className="space-y-6">
                 {/* Title */}
                 <div>
                   <label className="block text-white font-medium mb-2">Title</label>
@@ -595,8 +592,5 @@ export default function EditArticlePage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 }

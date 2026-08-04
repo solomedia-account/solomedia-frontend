@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, Eye, Clock } from 'lucide-react';
+import { Calendar, Eye } from 'lucide-react';
+import { memo, useMemo } from 'react';
 
 interface ArticleCardProps {
   article: {
@@ -24,12 +25,14 @@ interface ArticleCardProps {
   featured?: boolean;
 }
 
-export default function ArticleCard({ article, featured = false }: ArticleCardProps) {
-  const date = new Date(article.publishedAt).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
+function ArticleCard({ article, featured = false }: ArticleCardProps) {
+  const date = useMemo(() => 
+    new Date(article.publishedAt).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    }), [article.publishedAt]
+  );
 
   if (featured) {
     return (
@@ -43,6 +46,7 @@ export default function ArticleCard({ article, featured = false }: ArticleCardPr
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
             />
           ) : (
             <div className="w-full h-full bg-gray-800" />
@@ -85,6 +89,7 @@ export default function ArticleCard({ article, featured = false }: ArticleCardPr
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               className="object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
             />
           ) : (
             <div className="w-full h-full bg-gray-800" />
@@ -110,6 +115,7 @@ export default function ArticleCard({ article, featured = false }: ArticleCardPr
                     alt={article.author.name}
                     width={24}
                     height={24}
+                    loading="lazy"
                   />
                 </div>
               )}
@@ -125,3 +131,5 @@ export default function ArticleCard({ article, featured = false }: ArticleCardPr
     </Link>
   );
 }
+
+export default memo(ArticleCard);

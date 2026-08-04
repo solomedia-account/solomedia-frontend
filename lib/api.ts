@@ -1,60 +1,57 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const CACHE_DURATION = 5 * 60 * 1000;
+const cache = new Map<string, { data: any; timestamp: number }>();
 
-const getAuthHeaders = (token?: string) => {
-  const headers: HeadersInit = { 'Content-Type': 'application/json' };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  return headers;
+const getAuthHeaders = (token?: string) => ({
+  'Content-Type': 'application/json',
+  ...(token && { 'Authorization': `Bearer ${token}` })
+});
+
+const handleResponse = async (response: Response) => {
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'API request failed');
+  }
+  return response.json();
+};
+
+const withCache = (key: string, data: any) => {
+  cache.set(key, { data, timestamp: Date.now() });
+  return data;
+};
+
+const getCached = (key: string) => {
+  const cached = cache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) return cached.data;
+  cache.delete(key);
+  return null;
+};
+
+const request = async (endpoint: string, options: RequestInit = {}, token?: string) => {
+  return handleResponse(
+    await fetch(`${API_BASE_URL}${endpoint}`, {
+      ...options,
+      headers: getAuthHeaders(token),
+    })
+  );
 };
 
 export const api = {
-  async get(endpoint: string, token?: string) {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      headers: token ? getAuthHeaders(token) : { 'Content-Type': 'application/json' },
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'API request failed');
+  async get(endpoint: string, token?: string, useCache = true) {
+    const cacheKey = `GET:${endpoint}`;
+    if (useCache) {
+      const cached = getCached(cacheKey);
+      if (cached) return cached;
     }
-    return response.json();
+    const data = await request(endpoint, { cache: 'no-store' }, token);
+    return useCache ? withCache(cacheKey, data) : data;
   },
-
-  async post(endpoint: string, data: any, token?: string) {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'POST',
-      headers: getAuthHeaders(token),
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'API request failed');
-    }
-    return response.json();
-  },
-
-  async put(endpoint: string, data: any, token?: string) {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'PUT',
-      headers: getAuthHeaders(token),
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'API request failed');
-    }
-    return response.json();
-  },
-
-  async delete(endpoint: string, token?: string) {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'DELETE',
-      headers: token ? getAuthHeaders(token) : {},
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'API request failed');
-    }
-    return response.json();
-  },
+  post: (endpoint: string, data: any, token?: string) => 
+    request(endpoint, { method: 'POST', body: JSON.stringify(data) }, token),
+  put: (endpoint: string, data: any, token?: string) => 
+    request(endpoint, { method: 'PUT', body: JSON.stringify(data) }, token),
+  delete: (endpoint: string, token?: string) => 
+    request(endpoint, { method: 'DELETE' }, token),
 };
 
 // Auth API
@@ -214,30 +211,18 @@ export const categoriesApi = {
 };
 
 // Upload API
-export const uploadApi = {
-  uploadImage: (file: File, token: string) => {
-    const formData = new FormData();
-    formData.append('image', file);
-    
-    return fetch(`${API_BASE_URL}/upload/image`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: formData,
-    }).then(response => response.json());
-  },
+const uploadFile = async (file: File, type: 'image' | 'video', token: string) => {
+  const formData = new FormData();
+  formData.append(type, file);
+  const response = await fetch(`${API_BASE_URL}/upload/${type}`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}` },
+    body: formData,
+  });
+  return handleResponse(response);
+};
 
-  uploadVideo: (file: File, token: string) => {
-    const formData = new FormData();
-    formData.append('video', file);
-    
-    return fetch(`${API_BASE_URL}/upload/video`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: formData,
-    }).then(response => response.json());
-  },
+export const uploadApi = {
+  uploadImage: (file: File, token: string) => uploadFile(file, 'image', token),
+  uploadVideo: (file: File, token: string) => uploadFile(file, 'video', token),
 };

@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { userApi, authApi } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { ArrowLeft, Shield, Edit, Trash2, Plus, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -108,9 +106,7 @@ export default function ManageUsersPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
+    <>
       <main className="flex-1 bg-gray-950 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
@@ -325,8 +321,6 @@ export default function ManageUsersPage() {
           </div>
         </div>
       )}
-
-      <Footer />
-    </div>
+    </>
   );
 }

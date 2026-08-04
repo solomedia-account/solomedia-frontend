@@ -94,7 +94,7 @@ export default function StoryCarousel({ articles }: StoryCarouselProps) {
                 <div className="flex items-center space-x-6 text-gray-300 mb-8">
                   <span className="flex items-center space-x-2">
                     <Clock size={18} />
-                    <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
+                    <span>{new Date(article.publishedAt).toLocaleDateString('en-US')}</span>
                   </span>
                   <span className="flex items-center space-x-2">
                     <Eye size={18} />
