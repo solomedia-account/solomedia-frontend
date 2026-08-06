@@ -47,90 +47,92 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         {/* Article Header */}
         <article className="bg-gray-950">
           <div className="container mx-auto px-4 py-12">
-            {/* Category Badge */}
-            <span
-              className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-6"
-              style={{ backgroundColor: article.category.color, color: '#000' }}
-            >
-              {article.category.name}
-            </span>
+            <div className="max-w-[60%] mx-auto">
+              {/* Category Badge */}
+              <span
+                className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-6"
+                style={{ backgroundColor: article.category.color, color: '#000' }}
+              >
+                {article.category.name}
+              </span>
 
-            {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              {article.title}
-            </h1>
+              {/* Title */}
+              <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">
+                {article.title}
+              </h1>
 
-            {/* Meta */}
-            <div className="flex items-center space-x-6 text-gray-400 mb-8">
-              <div className="flex items-center space-x-2">
-                {article.author.avatar && (
-                  <div className="w-10 h-10 rounded-full bg-gray-800 overflow-hidden">
-                    <img
-                      src={article.author.avatar}
-                      alt={article.author.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-                <span className="text-white">{article.author.name}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Calendar size={18} />
-                <span>{date}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Eye size={18} />
-                <span>{article.views} views</span>
-              </div>
-            </div>
-
-            {/* Featured Image */}
-            {article.featuredImage && (
-              <div className="relative h-96 md:h-[500px] rounded-xl overflow-hidden mb-8">
-                <Image
-                  src={article.featuredImage}
-                  alt={article.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            )}
-
-            {/* Actions */}
-            <div className="flex items-center space-x-4 mb-8">
-              <button className="flex items-center space-x-2 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-                <Share2 size={18} />
-                <span>Share</span>
-              </button>
-              <button className="flex items-center space-x-2 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-                <Bookmark size={18} />
-                <span>Save</span>
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className="prose prose-invert prose-lg max-w-4xl">
-              <div dangerouslySetInnerHTML={{ __html: article.content }} />
-            </div>
-
-            {/* Tags */}
-            {tags && tags.length > 0 && (
-              <div className="mt-12 pt-8 border-t border-gray-800">
-                <h3 className="text-lg font-semibold mb-4">Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag: string) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
+              {/* Meta */}
+              <div className="flex items-center space-x-6 text-gray-400 mb-8">
+                <div className="flex items-center space-x-2">
+                  {article.author.avatar && (
+                    <div className="w-10 h-10 rounded-full bg-gray-800 overflow-hidden">
+                      <img
+                        src={article.author.avatar}
+                        alt={article.author.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <span className="text-white">{article.author.name}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Calendar size={18} />
+                  <span>{date}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Eye size={18} />
+                  <span>{article.views} views</span>
                 </div>
               </div>
-            )}
+
+              {/* Featured Image */}
+              {article.featuredImage && (
+                <div className="relative h-96 md:h-[500px] rounded-xl overflow-hidden mb-8">
+                  <Image
+                    src={article.featuredImage}
+                    alt={article.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex items-center space-x-4 mb-8">
+                <button className="flex items-center space-x-2 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                  <Share2 size={18} />
+                  <span>Share</span>
+                </button>
+                <button className="flex items-center space-x-2 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                  <Bookmark size={18} />
+                  <span>Save</span>
+                </button>
+              </div>
+
+              {/* Content */}
+              <div className="prose prose-invert prose-lg max-w-none">
+                <div dangerouslySetInnerHTML={{ __html: article.content }} />
+              </div>
+
+              {/* Tags */}
+              {tags && tags.length > 0 && (
+                <div className="mt-12 pt-8 border-t border-gray-800">
+                  <h3 className="text-lg font-semibold mb-4">Tags</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag: string) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </article>
 

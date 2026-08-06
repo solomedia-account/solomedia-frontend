@@ -57,7 +57,7 @@ function Header() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden lg:flex items-center space-x-1 flex-nowrap">
             {categoriesLoading ? (
               <div className="flex items-center space-x-4">
                 <div className="w-16 h-6 bg-mag-gray-light/30 rounded animate-pulse"></div>

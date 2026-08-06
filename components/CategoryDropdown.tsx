@@ -49,7 +49,7 @@ function CategoryDropdown({ categoryId, isOpen, onClose }: CategoryDropdownProps
 
   return (
     <div 
-      className="fixed left-0 right-0 top-11 bg-gray-950/95 border-t border-gray-800 shadow-2xl z-50 backdrop-blur-sm"
+      className="fixed left-0 right-0 top-11 bg-gray-950/95 border-t border-gray-800 shadow-2xl z-50 backdrop-blur-sm animate-fade-in"
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
     >
