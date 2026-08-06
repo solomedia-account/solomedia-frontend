@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { articlesApi, categoriesApi, uploadApi } from '@/lib/api';
-import { Save, ArrowLeft, Eye, FileText, Tag, Image as ImageIcon, Upload, Video, Link as LinkIcon } from 'lucide-react';
+import { Save, ArrowLeft, Eye, FileText, Tag, Image as ImageIcon, Upload, Link as LinkIcon, Bold, Italic, List, Quote, Code, Minus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function CreateArticlePage() {
@@ -153,14 +153,65 @@ export default function CreateArticlePage() {
     }, 0);
   };
 
-  const insertContentImage = () => {
-    const url = prompt('Enter image URL:');
+  const insertFormat = (format: string) => {
+    const textarea = contentTextareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = formData.content.substring(start, end);
+    
+    let formattedText = '';
+    switch (format) {
+      case 'bold':
+        formattedText = `**${selectedText || 'bold text'}**`;
+        break;
+      case 'italic':
+        formattedText = `*${selectedText || 'italic text'}*`;
+        break;
+      case 'h1':
+        formattedText = `\n# ${selectedText || 'Heading 1'}\n`;
+        break;
+      case 'h2':
+        formattedText = `\n## ${selectedText || 'Heading 2'}\n`;
+        break;
+      case 'h3':
+        formattedText = `\n### ${selectedText || 'Heading 3'}\n`;
+        break;
+      case 'ul':
+        formattedText = `\n- ${selectedText || 'List item'}\n`;
+        break;
+      case 'ol':
+        formattedText = `\n1. ${selectedText || 'List item'}\n`;
+        break;
+      case 'quote':
+        formattedText = `\n> ${selectedText || 'Quote'}\n`;
+        break;
+      case 'code':
+        formattedText = `\`\`\`\n${selectedText || 'code'}\n\`\`\``;
+        break;
+      case 'hr':
+        formattedText = `\n---\n`;
+        break;
+      default:
+        return;
+    }
+
+    const newValue = formData.content.substring(0, start) + formattedText + formData.content.substring(end);
+    setFormData(prev => ({ ...prev, content: newValue }));
+
+    setTimeout(() => {
+      textarea.selectionStart = textarea.selectionEnd = start + formattedText.length;
+      textarea.focus();
+    }, 0);
+  };
+
+  const insertLink = () => {
+    const url = prompt('Enter link URL:');
     if (url) {
-      const alt = prompt('Enter alt text (optional):') || '';
-      const imageMarkdown = `
-![${alt}](${url})
-`;
-      insertAtCursor(imageMarkdown);
+      const text = prompt('Enter link text:') || url;
+      const linkMarkdown = `[${text}](${url})`;
+      insertAtCursor(linkMarkdown);
     }
   };
 
@@ -170,87 +221,31 @@ export default function CreateArticlePage() {
 
     setUploadingContentMedia(true);
     try {
-      const result = await uploadApi.uploadImage(file, token);
-      const alt = prompt('Enter alt text for the image (optional):') || '';
-      const imageMarkdown = `
-![${alt}](${result.url})
-`;
-      insertAtCursor(imageMarkdown);
-    } catch (error) {
-      console.error('Failed to upload content image:', error);
-      alert('Failed to upload image. Please try again.');
-    } finally {
-      setUploadingContentMedia(false);
-    }
-  };
-
-  const handleContentVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !token) return;
-
-    setUploadingContentMedia(true);
-    try {
-      const result = await uploadApi.uploadVideo(file, token);
-      const videoMarkdown = `
+      const isVideo = file.type.startsWith('video/');
+      const result = isVideo 
+        ? await uploadApi.uploadVideo(file, token)
+        : await uploadApi.uploadImage(file, token);
+      
+      if (isVideo) {
+        const videoMarkdown = `
 <video controls width="100%">
   <source src="${result.url}" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 `;
-      insertAtCursor(videoMarkdown);
+        insertAtCursor(videoMarkdown);
+      } else {
+        const alt = prompt('Enter alt text for the image (optional):') || '';
+        const imageMarkdown = `
+![${alt}](${result.url})
+`;
+        insertAtCursor(imageMarkdown);
+      }
     } catch (error) {
-      console.error('Failed to upload content video:', error);
-      alert('Failed to upload video. Please try again.');
+      console.error('Failed to upload content media:', error);
+      alert('Failed to upload media. Please try again.');
     } finally {
       setUploadingContentMedia(false);
-    }
-  };
-
-  const insertContentVideo = () => {
-    const url = prompt('Enter video URL (YouTube, Vimeo, or direct video link):');
-    if (url) {
-      let videoMarkdown = '';
-      
-      // Check if it's a YouTube URL
-      if (url.includes('youtube.com') || url.includes('youtu.be')) {
-        const videoId = url.includes('youtu.be') 
-          ? url.split('/').pop() 
-          : new URL(url).searchParams.get('v');
-        videoMarkdown = `
-<div class="video-container">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-</div>
-`;
-      } 
-      // Check if it's a Vimeo URL
-      else if (url.includes('vimeo.com')) {
-        const videoId = url.split('/').pop();
-        videoMarkdown = `
-<div class="video-container">
-  <iframe src="https://player.vimeo.com/video/${videoId}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-</div>
-`;
-      }
-      // Direct video link
-      else {
-        videoMarkdown = `
-<video controls width="100%">
-  <source src="${url}" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-`;
-      }
-      
-      insertAtCursor(videoMarkdown);
-    }
-  };
-
-  const insertLink = () => {
-    const url = prompt('Enter link URL:');
-    if (url) {
-      const text = prompt('Enter link text:') || url;
-      const linkMarkdown = `[${text}](${url})`;
-      insertAtCursor(linkMarkdown);
     }
   };
 
@@ -362,60 +357,168 @@ export default function CreateArticlePage() {
                   <label className="block text-white font-medium mb-2">Content</label>
                   
                   {/* Content Toolbar */}
-                  <div className="flex items-center space-x-2 mb-2 p-2 bg-gray-900 border border-gray-800 rounded-t-lg">
-                    <button
-                      type="button"
-                      onClick={insertContentImage}
-                      className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm"
-                    >
-                      <ImageIcon size={16} />
-                      <span>Image URL</span>
-                    </button>
-                    <label className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm cursor-pointer">
-                      <Upload size={16} />
-                      <span>{uploadingContentMedia ? 'Uploading...' : 'Upload Image'}</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleContentImageUpload}
-                        disabled={uploadingContentMedia}
-                        className="hidden"
-                      />
-                    </label>
-                    <button
-                      type="button"
-                      onClick={insertContentVideo}
-                      className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm"
-                    >
-                      <Video size={16} />
-                      <span>Video URL</span>
-                    </button>
-                    <label className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm cursor-pointer">
-                      <Upload size={16} />
-                      <span>{uploadingContentMedia ? 'Uploading...' : 'Upload Video'}</span>
-                      <input
-                        type="file"
-                        accept="video/*"
-                        onChange={handleContentVideoUpload}
-                        disabled={uploadingContentMedia}
-                        className="hidden"
-                      />
-                    </label>
-                    <button
-                      type="button"
-                      onClick={insertLink}
-                      className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm"
-                    >
-                      <LinkIcon size={16} />
-                      <span>Link</span>
-                    </button>
+                  <div className="flex flex-wrap items-center gap-2 mb-2 p-3 bg-gray-900 border border-gray-800 rounded-t-lg">
+                    {/* Text Formatting */}
+                    <div className="flex items-center space-x-1 border-r border-gray-700 pr-3">
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('bold')}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Bold"
+                      >
+                        <Bold size={16} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('italic')}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Italic"
+                      >
+                        <Italic size={16} />
+                      </button>
+                    </div>
+
+                    {/* Headings */}
+                    <div className="flex items-center space-x-1 border-r border-gray-700 pr-3">
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('h1')}
+                        className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm font-bold"
+                        title="Heading 1"
+                      >
+                        H1
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('h2')}
+                        className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm font-bold"
+                        title="Heading 2"
+                      >
+                        H2
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('h3')}
+                        className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm font-bold"
+                        title="Heading 3"
+                      >
+                        H3
+                      </button>
+                    </div>
+
+                    {/* Lists */}
+                    <div className="flex items-center space-x-1 border-r border-gray-700 pr-3">
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('ul')}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Bullet List"
+                      >
+                        <List size={16} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('ol')}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Numbered List"
+                      >
+                        <span className="font-bold">1.</span>
+                      </button>
+                    </div>
+
+                    {/* Other Formatting */}
+                    <div className="flex items-center space-x-1 border-r border-gray-700 pr-3">
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('quote')}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Quote"
+                      >
+                        <Quote size={16} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('code')}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Code Block"
+                      >
+                        <Code size={16} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => insertFormat('hr')}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Horizontal Rule"
+                      >
+                        <Minus size={16} />
+                      </button>
+                    </div>
+
+                    {/* Link */}
+                    <div className="flex items-center space-x-1">
+                      <button
+                        type="button"
+                        onClick={insertLink}
+                        className="p-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors"
+                        title="Insert Link"
+                      >
+                        <LinkIcon size={16} />
+                      </button>
+                    </div>
+
+                    {/* Media Upload */}
+                    <div className="flex items-center space-x-1 ml-auto">
+                      <label className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm cursor-pointer">
+                        <ImageIcon size={16} />
+                        <span>{uploadingContentMedia ? 'Uploading...' : 'Upload Image'}</span>
+                        <input
+                          type="file"
+                          accept="image/*,video/*"
+                          onChange={handleContentImageUpload}
+                          disabled={uploadingContentMedia}
+                          className="hidden"
+                        />
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const url = prompt('Enter media URL (image or video):');
+                          if (url) {
+                            const alt = prompt('Enter alt text (optional):') || '';
+                            const isVideo = url.match(/\.(mp4|webm|ogg)$/i) || url.includes('youtube') || url.includes('vimeo');
+                            if (isVideo) {
+                              let videoMarkdown = '';
+                              if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                                const videoId = url.includes('youtu.be') 
+                                  ? url.split('/').pop() 
+                                  : new URL(url).searchParams.get('v');
+                                videoMarkdown = `\n<div class="video-container">\n  <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>\n</div>\n`;
+                              } else if (url.includes('vimeo.com')) {
+                                const videoId = url.split('/').pop();
+                                videoMarkdown = `\n<div class="video-container">\n  <iframe src="https://player.vimeo.com/video/${videoId}" width="560" height="315" frameborder="0" allowfullscreen></iframe>\n</div>\n`;
+                              } else {
+                                videoMarkdown = `\n<video controls width="100%">\n  <source src="${url}" type="video/mp4">\n  Your browser does not support the video tag.\n</video>\n`;
+                              }
+                              insertAtCursor(videoMarkdown);
+                            } else {
+                              const imageMarkdown = `\n![${alt}](${url})\n`;
+                              insertAtCursor(imageMarkdown);
+                            }
+                          }
+                        }}
+                        className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded transition-colors text-sm"
+                      >
+                        <LinkIcon size={16} />
+                        <span>Media URL</span>
+                      </button>
+                    </div>
                   </div>
 
                   <textarea
                     ref={contentTextareaRef}
                     value={formData.content}
                     onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                    placeholder="Write your article content here... Use the toolbar above to insert images, videos, and links."
+                    placeholder="Write your article content here... Use the toolbar above for formatting and media insertion."
                     rows={15}
                     className="w-full bg-gray-900 border border-gray-800 border-t-0 rounded-b-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-soloyellow resize-none font-mono text-sm"
                   />

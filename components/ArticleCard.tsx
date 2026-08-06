@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, Eye } from 'lucide-react';
+import { Calendar, Eye, ArrowUpRight } from 'lucide-react';
 import { memo, useMemo } from 'react';
 
 interface ArticleCardProps {
   article: {
-    _id: string;
+    id?: string;
+    _id?: string;
     title: string;
     excerpt: string;
     featuredImage?: string;
@@ -37,40 +38,40 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
   if (featured) {
     return (
       <Link href={`/article/${article.slug}`} className="group block">
-        <div className="relative h-96 overflow-hidden rounded-xl">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+        <div className="relative h-[500px] overflow-hidden magazine-card">
+          <div className="absolute inset-0 bg-gradient-to-t from-mag-black via-mag-black/50 to-transparent z-10" />
           {article.featuredImage ? (
             <Image
               src={article.featuredImage}
               alt={article.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              className="object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full bg-gray-800" />
+            <div className="w-full h-full bg-mag-black-light" />
           )}
-          <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-            <span
-              className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3"
-              style={{ backgroundColor: article.category.color, color: '#000' }}
-            >
+          <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+            <span className="magazine-badge mb-4 inline-block">
               {article.category.name}
             </span>
-            <h2 className="text-2xl font-display font-bold text-white mb-2 group-hover:text-soloyellow transition-colors">
+            <h2 className="text-hero font-display font-bold text-mag-white mb-4 group-hover:text-mag-accent transition-colors leading-tight">
               {article.title}
             </h2>
-            <p className="text-gray-300 text-sm line-clamp-2 mb-3">{article.excerpt}</p>
-            <div className="flex items-center space-x-4 text-gray-400 text-xs">
-              <div className="flex items-center space-x-1">
-                <Calendar size={14} />
-                <span>{date}</span>
+            <p className="text-mag-gray-light text-lg line-clamp-2 mb-6 max-w-2xl">{article.excerpt}</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-6 text-mag-gray text-sm">
+                <div className="flex items-center space-x-2">
+                  <Calendar size={16} />
+                  <span>{date}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Eye size={16} />
+                  <span>{article.views} views</span>
+                </div>
               </div>
-              <div className="flex items-center space-x-1">
-                <Eye size={14} />
-                <span>{article.views} views</span>
-              </div>
+              <ArrowUpRight size={24} className="text-mag-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
             </div>
           </div>
         </div>
@@ -80,49 +81,49 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
 
   return (
     <Link href={`/article/${article.slug}`} className="group block">
-      <div className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-soloyellow/50 transition-all duration-300">
-        <div className="relative h-48 overflow-hidden">
+      <div className="magazine-card">
+        <div className="relative h-64 overflow-hidden">
           {article.featuredImage ? (
             <Image
               src={article.featuredImage}
               alt={article.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              className="object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full bg-gray-800" />
+            <div className="w-full h-full bg-mag-black-light" />
           )}
-          <span
-            className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold"
-            style={{ backgroundColor: article.category.color, color: '#000' }}
-          >
+          <span className="magazine-badge absolute top-4 left-4">
             {article.category.name}
           </span>
+          <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <ArrowUpRight size={24} className="text-mag-accent" />
+          </div>
         </div>
-        <div className="p-5">
-          <h3 className="text-lg font-display font-semibold text-white mb-2 group-hover:text-soloyellow transition-colors line-clamp-2">
+        <div className="p-6">
+          <h3 className="text-headline font-display font-bold text-mag-white mb-3 group-hover:text-mag-accent transition-colors line-clamp-2 leading-tight">
             {article.title}
           </h3>
-          <p className="text-gray-400 text-sm line-clamp-2 mb-4">{article.excerpt}</p>
-          <div className="flex items-center justify-between text-gray-500 text-xs">
-            <div className="flex items-center space-x-2">
+          <p className="text-mag-gray text-base line-clamp-2 mb-6">{article.excerpt}</p>
+          <div className="flex items-center justify-between text-mag-gray text-sm border-t border-mag-gray-light/20 pt-4">
+            <div className="flex items-center space-x-3">
               {article.author.avatar && (
-                <div className="w-6 h-6 rounded-full bg-gray-700 overflow-hidden">
+                <div className="w-8 h-8 rounded-full bg-mag-black-light overflow-hidden border-2 border-mag-accent">
                   <Image
                     src={article.author.avatar}
                     alt={article.author.name}
-                    width={24}
-                    height={24}
+                    width={32}
+                    height={32}
                     loading="lazy"
                   />
                 </div>
               )}
-              <span>{article.author.name}</span>
+              <span className="font-medium">{article.author.name}</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <Calendar size={12} />
+            <div className="flex items-center space-x-2">
+              <Calendar size={14} />
               <span>{date}</span>
             </div>
           </div>

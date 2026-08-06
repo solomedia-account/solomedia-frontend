@@ -4,10 +4,47 @@
 
 @layer base {
   :root {
-    --soloblack: #000000;
-    --soloyellow: #FFD700;
-    --soloyellow-dark: #E5C100;
-    --soloyellow-light: #FFE44D;
+    --mag-black: #0a0a0a;
+    --mag-accent: #FF4500;
+    --mag-accent-yellow: #FFD700;
+  }
+
+  body {
+    @apply bg-mag-black text-mag-white font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .magazine-card {
+    @apply bg-mag-black-light border border-mag-gray-light/20 overflow-hidden transition-all duration-300 hover:border-mag-accent hover:shadow-2xl hover:shadow-mag-accent/20;
+  }
+
+  .magazine-card:hover {
+    @apply transform scale-[1.02];
+  }
+
+  .magazine-button {
+    @apply bg-mag-accent text-mag-white font-display font-bold uppercase tracking-wider px-8 py-4 transition-all duration-300 hover:bg-mag-accent-hover hover:transform hover:-translate-y-1;
+  }
+
+  .magazine-link {
+    @apply text-mag-white hover:text-mag-accent transition-colors duration-300 font-display font-bold uppercase tracking-wider;
+  }
+
+  .magazine-badge {
+    @apply bg-mag-accent text-mag-white font-display font-bold uppercase tracking-wider text-xs px-3 py-1;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-mag-accent to-mag-accent-hover;
+  }
+
+  .gradient-hero {
+    @apply bg-gradient-to-br from-mag-black via-mag-black-light to-mag-black;
   }
 }
 
@@ -15,12 +52,52 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .text-outline {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+  }
+
+  .hover-text-outline:hover {
+    -webkit-text-stroke: 0;
+    color: currentColor;
+  }
+
+  .clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+
+  .clip-angle {
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%);
+  }
 }
 
-body {
-  @apply bg-soloblack text-white;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.gradient-yellow {
-  @apply bg-gradient-to-r from-soloyellow to-soloyellow-dark;
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF4500;
+}
+
+/* Selection styling */
+::selection {
+  background: #FF4500;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: #FF4500;
+  color: #ffffff;
 }

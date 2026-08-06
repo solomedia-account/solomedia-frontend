@@ -1,12 +1,21 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Oswald, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { AuthProvider } from '@/contexts/AuthContext'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
+const oswald = Oswald({ 
+  subsets: ['latin'], 
+  variable: '--font-oswald',
+  weight: ['400', '500', '600', '700']
+})
+
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ['latin'], 
+  variable: '--font-space-grotesk',
+  weight: ['300', '400', '500', '600', '700']
+})
 
 export const metadata: Metadata = {
   title: 'SoloMedia - African Culture & Diaspora',
@@ -23,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+      <body className={`${oswald.variable} ${spaceGrotesk.variable} font-body antialiased`}>
         <AuthProvider>
           <Header />
           {children}
