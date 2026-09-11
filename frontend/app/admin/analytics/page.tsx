@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { dashboardApi } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { ArrowLeft, TrendingUp, Eye, FileText, Users, Calendar } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -45,10 +43,7 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1 bg-gray-950 py-12">
+    <main className="flex-1 bg-gray-950 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8 flex items-center space-x-4">
@@ -194,8 +189,5 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 }

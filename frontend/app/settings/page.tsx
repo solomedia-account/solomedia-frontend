@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { preferencesApi } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Bell, Mail, Moon, Sun, Globe, Save } from 'lucide-react';
 
 export default function SettingsPage() {
@@ -64,10 +62,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1 bg-gray-950 py-12">
+    <main className="flex-1 bg-gray-950 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="mb-8">
@@ -207,8 +202,5 @@ export default function SettingsPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 }

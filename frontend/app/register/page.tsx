@@ -24,8 +24,8 @@ export default function RegisterPage() {
       return;
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,128}$/.test(password)) {
+      setError('Password must be 8-128 characters and include uppercase, lowercase, number, and special character');
       return;
     }
 
@@ -35,7 +35,7 @@ export default function RegisterPage() {
       await register(name, email, password);
       router.push('/dashboard');
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      setError(err instanceof Error ? err.message : 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

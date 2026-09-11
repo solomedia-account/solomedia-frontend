@@ -1,11 +1,9 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import { api } from '@/lib/api';
 
 async function getCategory(slug: string) {
   try {
-    const category = await api.get(`/categories/${slug}`);
+    const category = await api.get(`/categories/${slug}`, undefined, true);
     return category;
   } catch (error) {
     return null;
@@ -14,18 +12,13 @@ async function getCategory(slug: string) {
 
 async function getCategoryArticles(categorySlug: string) {
   try {
-    const category = await api.get(`/categories/${categorySlug}`);
-    console.log('Category:', category);
+    const category = await api.get(`/categories/${categorySlug}`, undefined, true);
     if (!category || !category.id) {
-      console.error('Category not found or missing ID');
       return [];
     }
-    const data = await api.get(`/articles?category=${category.id}&limit=12`);
-    console.log('Articles data:', data);
-    console.log('Articles:', data.articles);
+    const data = await api.get(`/articles?category=${category.id}&limit=12`, undefined, true);
     return data.articles || [];
   } catch (error) {
-    console.error('Error fetching category articles:', error);
     return [];
   }
 }
@@ -43,10 +36,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1">
+    <main className="flex-1">
         {/* Category Header */}
         <section className="bg-gray-950 py-12">
           <div className="container mx-auto px-4">
@@ -87,8 +77,5 @@ export default async function CategoryPage({ params }: { params: { slug: string 
           </div>
         </section>
       </main>
-
-      <Footer />
-    </div>
   );
 }

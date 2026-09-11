@@ -1,37 +1,53 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
-import StoryCarousel from '@/components/StoryCarousel';
-import ParallaxSection from '@/components/ParallaxSection';
 import { api } from '@/lib/api';
+import dynamic from 'next/dynamic';
+import { Metadata } from 'next';
+
+const StoryCarousel = dynamic(() => import('@/components/StoryCarousel'), {
+  loading: () => <div className="h-[600px] bg-mag-black-light animate-pulse" />,
+  ssr: true
+});
+
+const ParallaxSection = dynamic(() => import('@/components/ParallaxSection'), {
+  loading: () => <div className="h-[500px] bg-mag-black-light animate-pulse" />,
+  ssr: true
+});
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics. SoloMedia brings you stories from the African diaspora.',
+  openGraph: {
+    title: 'SoloMedia - Home',
+    description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics.',
+    url: 'https://solomedia.cm',
+  },
+};
 
 async function getCarouselStories() {
   try {
-    const categories = await api.get('/categories');
+    const categories = await api.get('/categories', undefined, true);
     const stories = await Promise.all(
       categories.map(async (category: any) => {
-        const data = await api.get(`/articles?category=${category.id}&limit=1`);
+        const data = await api.get(`/articles?category=${category.id}&limit=1`, undefined, true);
         return data.articles?.[0] || null;
       })
     );
     const filteredStories = stories.filter((story: any) => story !== null);
     
-    // If no stories from categories, get top stories as fallback
     if (filteredStories.length === 0) {
-      const data = await api.get('/articles?limit=6');
+      const data = await api.get('/articles?limit=6', undefined, true);
       return data.articles || [];
     }
     
     return filteredStories;
   } catch (error) {
-    console.error('Error fetching carousel stories:', error);
     return [];
   }
 }
 
 async function getTopStories() {
   try {
-    const data = await api.get('/articles?limit=6&sort=views');
+    const data = await api.get('/articles?limit=6&sort=views', undefined, true);
     return data.articles || [];
   } catch (error) {
     return [];
@@ -40,7 +56,7 @@ async function getTopStories() {
 
 async function getLatestStories() {
   try {
-    const data = await api.get('/articles?limit=8&sort=publishedAt');
+    const data = await api.get('/articles?limit=8&sort=publishedAt', undefined, true);
     return data.articles || [];
   } catch (error) {
     return [];
@@ -49,20 +65,18 @@ async function getLatestStories() {
 
 async function getInvestorRelationsStory() {
   try {
-    const categories = await api.get('/categories');
+    const categories = await api.get('/categories', undefined, true);
     const investorCategory = categories?.find((c: any) => c.slug === 'investor-relations');
     if (investorCategory && investorCategory.id) {
-      const data = await api.get(`/articles?category=${investorCategory.id}&limit=1`);
+      const data = await api.get(`/articles?category=${investorCategory.id}&limit=1`, undefined, true);
       if (data.articles?.[0]) {
         return data.articles[0];
       }
     }
     
-    // Fallback to top story if no investor relations story
-    const data = await api.get('/articles?limit=1');
+    const data = await api.get('/articles?limit=1', undefined, true);
     return data.articles?.[0] || null;
   } catch (error) {
-    console.error('Error fetching investor relations story:', error);
     return null;
   }
 }
@@ -74,76 +88,81 @@ export default async function Home() {
   const latestStories = await getLatestStories();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1">
-        {/* Story Carousel */}
-        <StoryCarousel articles={carouselStories} />
+    <main className="flex-1">
+      {/* Story Carousel */}
+      <StoryCarousel articles={carouselStories} />
 
-        {/* Top Stories Section */}
-        {topStories.length > 0 && (
-          <section className="py-12 bg-gray-950">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-display font-bold mb-8 flex items-center">
-                <span className="w-2 h-8 bg-soloyellow mr-4"></span>
+      {/* Top Stories Section */}
+      {topStories.length > 0 && (
+        <section className="py-16 bg-mag-black">
+          <div className="container mx-auto px-6">
+            <div className="flex items-center mb-12">
+              <div className="w-3 h-16 bg-mag-accent mr-6"></div>
+              <h2 className="text-headline font-display font-bold text-mag-white uppercase tracking-wider">
                 Top Stories
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {topStories.slice(0, 6).map((article: any) => (
-                  <ArticleCard key={article.id} article={article} />
-                ))}
-              </div>
             </div>
-          </section>
-        )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {topStories.slice(0, 6).map((article: any, index: number) => (
+                <div key={article.id} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
+                  <ArticleCard key={article.id} article={article} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-        {/* Parallax Section - Investor Relations */}
-        {investorStory && <ParallaxSection article={investorStory} />}
+      {/* Parallax Section - Investor Relations */}
+      {investorStory && <ParallaxSection article={investorStory} />}
 
-        {/* Latest Stories Section */}
-        {latestStories.length > 0 && (
-          <section className="py-12 bg-gray-950">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-display font-bold mb-8 flex items-center">
-                <span className="w-2 h-8 bg-soloyellow mr-4"></span>
+      {/* Latest Stories Section */}
+      {latestStories.length > 0 && (
+        <section className="py-16 bg-mag-black-light">
+          <div className="container mx-auto px-6">
+            <div className="flex items-center mb-12">
+              <div className="w-3 h-16 bg-mag-accent mr-6"></div>
+              <h2 className="text-headline font-display font-bold text-mag-white uppercase tracking-wider">
                 Latest Stories
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {latestStories.map((article: any) => (
-                  <ArticleCard key={article.id} article={article} />
-                ))}
-              </div>
             </div>
-          </section>
-        )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {latestStories.map((article: any, index: number) => (
+                <div key={article.id} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
+                  <ArticleCard key={article.id} article={article} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-        {/* Newsletter Section */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="bg-gradient-to-r from-soloyellow to-soloyellow-dark rounded-2xl p-12 text-center">
-              <h2 className="text-3xl font-display font-bold text-soloblack mb-4">
+      {/* Newsletter Section */}
+      <section className="py-24 bg-mag-black">
+        <div className="container mx-auto px-6">
+          <div className="gradient-accent clip-diagonal p-16 text-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-mag-black/10"></div>
+            <div className="relative z-10">
+              <h2 className="text-hero font-display font-bold text-mag-white mb-6 uppercase tracking-tight">
                 Stay Connected
               </h2>
-              <p className="text-soloblack/80 mb-6 max-w-xl mx-auto">
+              <p className="text-mag-white/90 text-xl mb-8 max-w-2xl mx-auto font-body">
                 Get the latest stories from the African diaspora delivered to your inbox.
               </p>
-              <div className="flex max-w-md mx-auto space-x-2">
+              <div className="flex max-w-lg mx-auto space-x-4">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-lg text-soloblack placeholder-soloblack/50 focus:outline-none focus:ring-2 focus:ring-soloblack"
+                  className="flex-1 px-6 py-4 bg-mag-white/10 border-2 border-mag-white/30 text-mag-white placeholder-mag-white/50 focus:outline-none focus:border-mag-white font-body text-lg rounded-none"
                 />
-                <button className="bg-soloblack text-soloyellow px-6 py-3 rounded-lg font-semibold hover:bg-gray-900 transition-colors">
+                <button className="magazine-button text-lg px-8 py-4">
                   Subscribe
                 </button>
               </div>
             </div>
           </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }
