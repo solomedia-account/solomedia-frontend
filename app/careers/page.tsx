@@ -1,17 +1,6 @@
 'use client';
 
 import { Video, Edit, Palette, TrendingUp, Scale, Code, MessageCircle, CheckCircle, ArrowRight } from 'lucide-react';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Careers',
-  description: 'Join the SoloMedia team. Explore career opportunities in content production, film, design, marketing, and more. Work with a leading African diaspora media company.',
-  openGraph: {
-    title: 'Careers at SoloMedia',
-    description: 'Join the SoloMedia team. Explore career opportunities in content production, film, design, and marketing.',
-    url: 'https://solomedia.onrender.com/careers',
-  },
-};
 
 const WHATSAPP_NUMBER = '+23408148525199';
 

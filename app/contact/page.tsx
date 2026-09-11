@@ -2,17 +2,6 @@
 
 import { useState } from 'react';
 import { Mail, MapPin, AlertCircle, ShoppingBag, FileText, Store, Send, MessageCircle } from 'lucide-react';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with SoloMedia. Contact us for inquiries, partnerships, advertising, or any questions about our African diaspora content platform.',
-  openGraph: {
-    title: 'Contact SoloMedia',
-    description: 'Get in touch with SoloMedia for inquiries, partnerships, and advertising.',
-    url: 'https://solomedia.onrender.com/contact',
-  },
-};
 
 const WHATSAPP_NUMBER = '+23408148525199';
 
