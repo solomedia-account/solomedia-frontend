@@ -1,4 +1,15 @@
 import { Target, Globe, BookOpen, Users, TrendingUp, Award } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about SoloMedia - Premier entertainment and content production company specializing in Fashion, Modeling, and Acting for the African diaspora.',
+  openGraph: {
+    title: 'About SoloMedia',
+    description: 'Learn about SoloMedia - Premier entertainment and content production company specializing in Fashion, Modeling, and Acting.',
+    url: 'https://solomedia.onrender.com/about',
+  },
+};
 
 export default function AboutPage() {
   return (

@@ -41,20 +41,17 @@ function Header() {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative w-12 h-12">
+          <Link href="/" className="flex items-center group">
+            <div className="relative w-16 h-16">
               <Image
                 src="/logo.jpg"
                 alt="SoloMedia"
                 fill
                 className="object-contain transition-transform duration-300 group-hover:scale-110"
-                sizes="48px"
+                sizes="64px"
                 priority
               />
             </div>
-            <span className="text-3xl font-display font-bold text-white tracking-tight">
-              SOLO<span className="text-mag-accent group-hover:text-mag-accent-hover transition-colors">MEDIA</span>
-            </span>
           </Link>
 
           <nav className="hidden lg:flex items-center space-x-1 flex-nowrap">

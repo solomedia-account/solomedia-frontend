@@ -1,6 +1,7 @@
 import ArticleCard from '@/components/ArticleCard';
 import { api } from '@/lib/api';
 import dynamic from 'next/dynamic';
+import { Metadata } from 'next';
 
 const StoryCarousel = dynamic(() => import('@/components/StoryCarousel'), {
   loading: () => <div className="h-[600px] bg-mag-black-light animate-pulse" />,
@@ -11,6 +12,16 @@ const ParallaxSection = dynamic(() => import('@/components/ParallaxSection'), {
   loading: () => <div className="h-[500px] bg-mag-black-light animate-pulse" />,
   ssr: true
 });
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics. SoloMedia brings you stories from the African diaspora.',
+  openGraph: {
+    title: 'SoloMedia - Home',
+    description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics.',
+    url: 'https://solomedia.onrender.com',
+  },
+};
 
 async function getCarouselStories() {
   try {

@@ -2,6 +2,7 @@ import ArticleCard from '@/components/ArticleCard';
 import { api } from '@/lib/api';
 import { Calendar, Eye, Share2, Bookmark } from 'lucide-react';
 import Image from 'next/image';
+import { Metadata } from 'next';
 
 async function getArticle(slug: string) {
   try {
@@ -19,6 +20,46 @@ async function getRelatedArticles(categoryId: string, currentArticleId: string) 
   } catch (error) {
     return [];
   }
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const article = await getArticle(params.slug);
+  
+  if (!article) {
+    return {
+      title: 'Article Not Found',
+    };
+  }
+
+  const tags = typeof article.tags === 'string' ? JSON.parse(article.tags) : article.tags;
+  
+  return {
+    title: article.title,
+    description: article.excerpt || article.content?.substring(0, 160) || 'Read this article on SoloMedia',
+    keywords: tags || [article.category?.name, 'SoloMedia', 'African culture'],
+    openGraph: {
+      title: article.title,
+      description: article.excerpt || article.content?.substring(0, 160),
+      url: `https://solomedia.onrender.com/article/${article.slug}`,
+      images: article.featuredImage ? [
+        {
+          url: article.featuredImage,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ] : [],
+      type: 'article',
+      publishedTime: article.publishedAt,
+      authors: [article.author?.name],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.excerpt || article.content?.substring(0, 160),
+      images: article.featuredImage ? [article.featuredImage] : [],
+    },
+  };
 }
 
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
