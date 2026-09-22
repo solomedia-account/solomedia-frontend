@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { api } from '@/lib/api'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://solomedia.cm'
+  const baseUrl = 'https://solomedia.onrender.com'
   
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

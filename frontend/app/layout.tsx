@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://solomedia.cm',
+    url: 'https://solomedia.onrender.com',
     siteName: 'SoloMedia',
     title: 'SoloMedia - African Culture & Diaspora',
     description: 'Your destination for African fashion, arts, music, film, entertainment, technology and investor dynamics for blacks in the diaspora.',
@@ -68,7 +68,10 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   verification: {
-    google: 'your-google-verification-code',
+    google: 'iQr8CzYovgfJ7ywiHjkmnpgU7JPvRM0nYpJN41w63jY',
+  },
+  other: {
+    'google-site-verification': '_wKEIuy020-rByWEZ2cYHF4AALvrBK8px7k4IbabWjA',
   },
 }
 
