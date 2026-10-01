@@ -5,6 +5,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { articlesApi, categoriesApi, uploadApi } from '@/lib/api';
 import { Save, ArrowLeft, Eye, FileText, Tag, Image as ImageIcon, Upload, Link as LinkIcon, Bold, Italic, List, Quote, Code, Minus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import DOMPurify from 'dompurify';
 
 export default function CreateArticlePage() {
   const { user, token } = useAuth();
@@ -621,8 +624,50 @@ export default function CreateArticlePage() {
                 {formData.excerpt && (
                   <p className="text-gray-400 text-lg mb-6">{formData.excerpt}</p>
                 )}
-                <div className="prose prose-invert max-w-none">
-                  <div className="whitespace-pre-wrap text-white">{formData.content || 'No content yet...'}</div>
+                <div className="prose prose-invert prose-lg max-w-none">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      // Custom components for better styling
+                      h1: ({ children }) => <h1 className="text-3xl font-bold text-white mb-4">{children}</h1>,
+                      h2: ({ children }) => <h2 className="text-2xl font-bold text-white mb-3">{children}</h2>,
+                      h3: ({ children }) => <h3 className="text-xl font-bold text-white mb-2">{children}</h3>,
+                      p: ({ children }) => <p className="text-gray-300 mb-4">{children}</p>,
+                      strong: ({ children }) => <strong className="text-white font-semibold">{children}</strong>,
+                      em: ({ children }) => <em className="text-gray-200 italic">{children}</em>,
+                      a: ({ href, children }) => (
+                        <a href={href} className="text-soloyellow hover:text-soloyellow-dark underline" target="_blank" rel="noopener noreferrer">
+                          {children}
+                        </a>
+                      ),
+                      ul: ({ children }) => <ul className="list-disc list-inside text-gray-300 mb-4 space-y-2">{children}</ul>,
+                      ol: ({ children }) => <ol className="list-decimal list-inside text-gray-300 mb-4 space-y-2">{children}</ol>,
+                      li: ({ children }) => <li className="text-gray-300">{children}</li>,
+                      blockquote: ({ children }) => (
+                        <blockquote className="border-l-4 border-soloyellow pl-4 italic text-gray-400 bg-gray-800/50 py-2 pr-4 mb-4">
+                          {children}
+                        </blockquote>
+                      ),
+                      code: ({ inline, children }) => 
+                        inline ? (
+                          <code className="bg-gray-800 text-soloyellow px-2 py-1 rounded text-sm">{children}</code>
+                        ) : (
+                          <code className="block bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto text-sm">{children}</code>
+                        ),
+                      pre: ({ children }) => <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4">{children}</pre>,
+                      img: ({ src, alt }) => (
+                        <img 
+                          src={src} 
+                          alt={alt || ''} 
+                          className="rounded-lg my-4 max-w-full h-auto"
+                          loading="lazy"
+                        />
+                      ),
+                      hr: () => <hr className="border-gray-700 my-6" />,
+                    }}
+                  >
+                    {formData.content || 'No content yet...'}
+                  </ReactMarkdown>
                 </div>
               </div>
             )}
