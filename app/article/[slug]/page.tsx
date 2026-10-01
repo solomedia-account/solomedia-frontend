@@ -225,13 +225,14 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                         {children}
                       </blockquote>
                     ),
-                    code: ({ inline, children }) => 
-                      inline ? (
-                        <code className="bg-gray-800 text-soloyellow px-2 py-1 rounded text-sm">{children}</code>
-                      ) : (
-                        <code className="block bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto text-sm">{children}</code>
-                      ),
-                    pre: ({ children }) => <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4">{children}</pre>,
+                    code: ({ className, children }) => (
+                      <code className="bg-gray-800 text-soloyellow px-2 py-1 rounded text-sm">{children}</code>
+                    ),
+                    pre: ({ children }) => (
+                      <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4">
+                        <code className="text-gray-200">{children}</code>
+                      </pre>
+                    ),
                     img: ({ src, alt }) => (
                       <img 
                         src={src} 
