@@ -101,13 +101,24 @@ export default function CreateArticlePage() {
         status: overrideStatus || formData.status,
         categoryId: formData.categoryId || undefined,
         tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
+        featuredImage: formData.featuredImage || null,
       };
 
-      console.log('Submitting article with status:', articleData.status);
+      console.log('Submitting article with data:', { 
+        ...articleData, 
+        content: articleData.content?.substring(0, 100) + '...',
+        featuredImage: articleData.featuredImage 
+      });
+      
       await articlesApi.createArticle(articleData, token);
       router.push('/dashboard');
     } catch (error: any) {
       console.error('Failed to create article:', error);
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       alert(`Failed to create article: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
