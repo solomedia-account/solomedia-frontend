@@ -7,6 +7,7 @@ import { Save, ArrowLeft, Eye, FileText, Tag, Image as ImageIcon, Upload, Link a
 import { useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import DOMPurify from 'dompurify';
 
 export default function CreateArticlePage() {
@@ -638,8 +639,8 @@ export default function CreateArticlePage() {
                 <div className="prose prose-invert prose-lg max-w-none">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
                     components={{
-                      // Custom components for better styling
                       h1: ({ children }) => <h1 className="text-3xl font-bold text-white mb-4">{children}</h1>,
                       h2: ({ children }) => <h2 className="text-2xl font-bold text-white mb-3">{children}</h2>,
                       h3: ({ children }) => <h3 className="text-xl font-bold text-white mb-2">{children}</h3>,
@@ -676,6 +677,20 @@ export default function CreateArticlePage() {
                         />
                       ),
                       hr: () => <hr className="border-gray-700 my-6" />,
+                      div: ({ children, className }) => {
+                        if (className === 'video-container') {
+                          return <div className="video-container">{children}</div>;
+                        }
+                        return <div className={className}>{children}</div>;
+                      },
+                      iframe: ({ src, ...props }) => (
+                        <iframe 
+                          src={src} 
+                          {...props}
+                          className="w-full h-full"
+                          allowFullScreen
+                        />
+                      ),
                     }}
                   >
                     {formData.content || 'No content yet...'}

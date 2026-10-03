@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 async function getArticle(slug: string) {
   try {
@@ -205,6 +206,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               <div className="prose prose-invert prose-lg md:prose-xl max-w-none">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
                   components={{
                     h1: ({ children }) => <h1 className="text-3xl font-bold text-white mb-4">{children}</h1>,
                     h2: ({ children }) => <h2 className="text-2xl font-bold text-white mb-3">{children}</h2>,
@@ -242,6 +244,20 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                       />
                     ),
                     hr: () => <hr className="border-gray-700 my-6" />,
+                    div: ({ children, className }) => {
+                      if (className === 'video-container') {
+                        return <div className="video-container">{children}</div>;
+                      }
+                      return <div className={className}>{children}</div>;
+                    },
+                    iframe: ({ src, ...props }) => (
+                      <iframe 
+                        src={src} 
+                        {...props}
+                        className="w-full h-full"
+                        allowFullScreen
+                      />
+                    ),
                   }}
                 >
                   {article.content}
