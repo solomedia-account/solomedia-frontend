@@ -70,9 +70,6 @@ export const metadata: Metadata = {
   verification: {
     google: 'iQr8CzYovgfJ7ywiHjkmnpgU7JPvRM0nYpJN41w63jY',
   },
-  other: {
-    'google-site-verification': '_wKEIuy020-rByWEZ2cYHF4AALvrBK8px7k4IbabWjA',
-  },
 }
 
 export default function RootLayout({
