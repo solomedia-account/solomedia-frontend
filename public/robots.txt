@@ -2,5 +2,10 @@
 User-agent: *
 Allow: /
 
+# Disallow specific paths if needed
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
 # Sitemap location
 Sitemap: https://solomedia.onrender.com/sitemap.xml

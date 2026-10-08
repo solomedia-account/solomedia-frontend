@@ -14,10 +14,10 @@ const ParallaxSection = dynamic(() => import('@/components/ParallaxSection'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'SoloMedia - African Culture & Diaspora | Home',
   description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics. SoloMedia brings you stories from the African diaspora.',
   openGraph: {
-    title: 'SoloMedia - Home',
+    title: 'SoloMedia - African Culture & Diaspora | Home',
     description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics.',
     url: 'https://solomedia.onrender.com',
   },
