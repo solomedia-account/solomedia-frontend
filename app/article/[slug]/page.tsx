@@ -68,8 +68,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
   const article = await getArticle(params.slug);
   const relatedArticles = article ? await getRelatedArticles(article.categoryId, article.id) : [];
-  const article = await getArticle(params.slug);
-  const relatedArticles = article ? await getRelatedArticles(article.categoryId, article.id) : [];
 
   if (!article) {
     return (
