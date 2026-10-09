@@ -101,6 +101,8 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 sizes="100vw"
                 className="object-cover"
                 priority
+                width={1200}
+                height={630}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent" />
               
