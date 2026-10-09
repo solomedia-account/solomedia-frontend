@@ -104,6 +104,7 @@ export default function StoryCarousel({ articles }: StoryCarouselProps) {
                   href={`/article/${article.slug}`}
                   className="magazine-button inline-flex items-center space-x-3 text-lg animate-slide-up"
                   style={{ animationDelay: '400ms' }}
+                  aria-label={`Read ${article.title}`}
                 >
                   <span>Read Story</span>
                   <ArrowUpRight size={20} />
@@ -117,13 +118,15 @@ export default function StoryCarousel({ articles }: StoryCarouselProps) {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-6 top-1/2 -translate-y-1/2 bg-mag-black/80 hover:bg-mag-accent text-mag-white p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border-2 border-mag-white/20 hover:border-mag-accent"
+        className="absolute left-6 top-1/2 -translate-y-1/2 bg-mag-black/90 hover:bg-mag-accent text-mag-white p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border-2 border-mag-white/30 hover:border-mag-accent"
+        aria-label="Previous slide"
       >
         <ChevronLeft size={28} />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-6 top-1/2 -translate-y-1/2 bg-mag-black/80 hover:bg-mag-accent text-mag-white p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border-2 border-mag-white/20 hover:border-mag-accent"
+        className="absolute right-6 top-1/2 -translate-y-1/2 bg-mag-black/90 hover:bg-mag-accent text-mag-white p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border-2 border-mag-white/30 hover:border-mag-accent"
+        aria-label="Next slide"
       >
         <ChevronRight size={28} />
       </button>
@@ -137,8 +140,9 @@ export default function StoryCarousel({ articles }: StoryCarouselProps) {
             className={`w-4 h-4 rounded-full transition-all duration-300 ${
               index === currentIndex 
                 ? 'bg-mag-accent scale-125' 
-                : 'bg-mag-white/30 hover:bg-mag-white/60'
+                : 'bg-mag-white/40 hover:bg-mag-white/70'
             }`}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
