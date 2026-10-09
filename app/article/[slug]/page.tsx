@@ -68,6 +68,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
   const article = await getArticle(params.slug);
   const relatedArticles = article ? await getRelatedArticles(article.categoryId, article.id) : [];
+  const article = await getArticle(params.slug);
+  const relatedArticles = article ? await getRelatedArticles(article.categoryId, article.id) : [];
 
   if (!article) {
     return (
@@ -127,6 +129,8 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                             src={article.author.avatar}
                             alt={article.author.name}
                             className="w-full h-full object-cover"
+                            width={40}
+                            height={40}
                           />
                         </div>
                       )}
@@ -173,6 +177,8 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                             src={article.author.avatar}
                             alt={article.author.name}
                             className="w-full h-full object-cover"
+                            width={40}
+                            height={40}
                           />
                         </div>
                       )}
@@ -241,6 +247,8 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                         alt={alt || ''} 
                         className="rounded-lg my-4 max-w-full h-auto"
                         loading="lazy"
+                        width={800}
+                        height={450}
                       />
                     ),
                     hr: () => <hr className="border-gray-700 my-6" />,

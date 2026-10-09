@@ -26,7 +26,7 @@ export default function ParallaxSection({ article }: ParallaxSectionProps) {
   if (!article) return null;
 
   return (
-    <section className="relative h-[500px] overflow-hidden">
+    <section className="relative h-[500px] w-full overflow-hidden">
       {/* Parallax Background */}
       <div className="absolute inset-0">
         {article.featuredImage && (
@@ -37,6 +37,8 @@ export default function ParallaxSection({ article }: ParallaxSectionProps) {
             sizes="100vw"
             className="object-cover"
             style={{ transform: 'scale(1.1)' }}
+            width={1920}
+            height={500}
           />
         )}
         <div className="absolute inset-0 bg-black/60" />

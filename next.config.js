@@ -20,7 +20,20 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.cloudinary.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
   webpack: (config) => {
     config.resolve.alias = {

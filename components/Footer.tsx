@@ -16,6 +16,8 @@ export default function Footer() {
                   alt="SoloMedia"
                   fill
                   className="object-contain"
+                  width={48}
+                  height={48}
                 />
               </div>
               <span className="text-2xl font-display font-bold text-mag-white tracking-tight">

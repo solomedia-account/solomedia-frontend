@@ -50,6 +50,8 @@ function Header() {
                 className="object-contain transition-transform duration-300 group-hover:scale-110"
                 sizes="64px"
                 priority
+                width={64}
+                height={64}
               />
             </div>
           </Link>

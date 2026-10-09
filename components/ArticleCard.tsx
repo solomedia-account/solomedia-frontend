@@ -38,7 +38,7 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
   if (featured) {
     return (
       <Link href={`/article/${article.slug}`} className="group block">
-        <div className="relative h-[500px] overflow-hidden magazine-card">
+        <div className="relative h-[500px] w-full overflow-hidden magazine-card">
           <div className="absolute inset-0 bg-gradient-to-t from-mag-black via-mag-black/50 to-transparent z-10" />
           {article.featuredImage ? (
             <Image
@@ -48,6 +48,8 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
+              width={800}
+              height={500}
             />
           ) : (
             <div className="w-full h-full bg-mag-black-light" />
@@ -82,7 +84,7 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
   return (
     <Link href={`/article/${article.slug}`} className="group block">
       <div className="magazine-card">
-        <div className="relative h-64 overflow-hidden">
+        <div className="relative h-64 w-full overflow-hidden">
           {article.featuredImage ? (
             <Image
               src={article.featuredImage}
@@ -91,6 +93,8 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               className="object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
+              width={400}
+              height={256}
             />
           ) : (
             <div className="w-full h-full bg-mag-black-light" />

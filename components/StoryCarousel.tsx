@@ -67,6 +67,8 @@ export default function StoryCarousel({ articles }: StoryCarouselProps) {
                 sizes="100vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-1000"
                 priority={index === 0}
+                width={1920}
+                height={700}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-mag-black via-mag-black/60 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-mag-black/80 via-transparent to-transparent" />
