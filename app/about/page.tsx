@@ -1,8 +1,9 @@
 import { Target, Globe, BookOpen, Users, TrendingUp, Award } from 'lucide-react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'About Us - SoloMedia',
   description: 'Learn about SoloMedia - Premier entertainment and content production company specializing in Fashion, Modeling, and Acting for the African diaspora.',
   openGraph: {
     title: 'About SoloMedia',
@@ -109,7 +110,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-mag-black/10"></div>
               <div className="relative z-10">
                 <Target size={64} className="text-mag-white mx-auto mb-8" />
-                <h2 className="text-hero font-display font-bold text-mag-white mb-8 uppercase tracking-tight">
+                <h2 className="text-2xl font-display font-bold text-mag-white mb-4 uppercase tracking-tight">
                   Our Mission
                 </h2>
                 <p className="text-xl md:text-2xl text-mag-white/90 font-body leading-relaxed max-w-3xl mx-auto">

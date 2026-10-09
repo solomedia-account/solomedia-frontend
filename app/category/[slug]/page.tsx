@@ -1,5 +1,6 @@
 import ArticleCard from '@/components/ArticleCard';
 import { api } from '@/lib/api';
+import { Metadata } from 'next';
 
 async function getCategory(slug: string) {
   try {
@@ -21,6 +22,26 @@ async function getCategoryArticles(categorySlug: string) {
   } catch (error) {
     return [];
   }
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const category = await getCategory(params.slug);
+  
+  if (!category) {
+    return {
+      title: 'Category Not Found - SoloMedia',
+    };
+  }
+
+  return {
+    title: `${category.name} - SoloMedia`,
+    description: category.description || `Explore ${category.name} articles and stories from the African diaspora on SoloMedia.`,
+    openGraph: {
+      title: `${category.name} - SoloMedia`,
+      description: category.description || `Explore ${category.name} articles and stories from the African diaspora on SoloMedia.`,
+      url: `https://solomedia.onrender.com/category/${category.slug}`,
+    },
+  };
 }
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {

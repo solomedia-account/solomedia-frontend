@@ -341,9 +341,9 @@ export default function CareersPage() {
       <section className="py-16 bg-mag-black-light">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-headline font-display font-bold text-mag-white mb-6 uppercase tracking-wider">
+            <h3 className="text-headline font-display font-bold text-mag-white mb-6 uppercase tracking-wider">
               We Are an Equal Opportunity Employer
-            </h2>
+            </h3>
             <p className="text-lg text-mag-gray-light leading-relaxed">
               At SoloMedia, we celebrate diversity and are committed to creating an inclusive environment for all employees. We encourage applications from individuals of all backgrounds, genders, nationalities, and abilities—especially those with a deep passion for African culture and development.
             </p>

@@ -231,9 +231,9 @@ export default function AdvertisePage() {
               <div className="absolute inset-0 bg-mag-black/10"></div>
               <div className="relative z-10">
                 <Star size={48} className="text-mag-white mb-6" />
-                <h2 className="text-headline font-display font-bold text-mag-white mb-8 uppercase tracking-wider">
+                <h3 className="text-headline font-display font-bold text-mag-white mb-8 uppercase tracking-wider">
                   Client Success Story
-                </h2>
+                </h3>
                 <blockquote className="text-xl md:text-2xl text-mag-white/90 font-body leading-relaxed mb-8 italic">
                   "We used Solomedia's Gold package to promote our Agritech fund to the diaspora. Within two weeks of the documentary airing, we received 47 qualified leads from France and the US, resulting in three major capital injections. They understand the investor psyche better than any agency in West Africa."
                 </blockquote>
