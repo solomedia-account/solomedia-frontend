@@ -12,15 +12,15 @@ Backend VM:
   Port: 5000
 
 Frontend VM:
-  Public IP: 145.241.103.133
-  Private IP: 10.0.0.237
+  Public IP: 84.12.90.176
+  Private IP: 10.0.0.241
   Port: 3000
 ```
 
 ## Changes Made
 
 ### 1. Backend Configuration
-- ✅ Updated `backend/.env.example` with `FRONTEND_URL=http://10.0.0.237:3000`
+- ✅ Updated `backend/.env.example` with `FRONTEND_URL=http://10.0.0.241:3000`
 - ✅ Updated `backend/Dockerfile` to use `npm ci --only=production` for production builds
 
 ### 2. Frontend Configuration
@@ -60,7 +60,7 @@ Frontend VM:
    Update `.env` with your production values:
    ```env
    PORT=5000
-   FRONTEND_URL=http://10.0.0.237:3000
+   FRONTEND_URL=http://10.0.0.241:3000
    NODE_ENV=production
 
    JWT_SECRET=your_production_jwt_secret_here
@@ -106,7 +106,7 @@ Frontend VM:
 
 1. **SSH into Frontend VM**
    ```bash
-   ssh ubuntu@145.241.103.133
+   ssh ubuntu@84.12.90.176
    ```
 
 2. **Clone or Upload Code**
@@ -116,7 +116,7 @@ Frontend VM:
    git clone <your-repo-url> solomedia
 
    # Option B: Upload via scp (from your local machine)
-   scp -r /path/to/solomedia ubuntu@145.241.103.133:~/
+   scp -r /path/to/solomedia ubuntu@84.12.90.176:~/
    ```
 
 3. **Make Deployment Script Executable**
@@ -139,7 +139,7 @@ Frontend VM:
    docker logs -f solomedia-frontend
 
    # Test from local machine
-   curl http://145.241.103.133:3000
+   curl http://84.12.90.176:3000
    ```
 
 ### Step 3: Test Full Stack
@@ -152,20 +152,20 @@ Frontend VM:
 
 2. **Test Frontend**
    ```bash
-   curl http://145.241.103.133:3000
+   curl http://84.12.90.176:3000
    ```
 
 3. **Test Inter-VM Communication**
    ```bash
    # From backend VM
-   curl http://10.0.0.237:3000
+   curl http://10.0.0.241:3000
 
    # From frontend VM
    curl http://10.0.0.188:5000/health
    ```
 
 4. **Access in Browser**
-   - Frontend: http://145.241.103.133:3000
+   - Frontend: http://84.12.90.176:3000
    - Backend API: http://84.12.90.85:5000
 
 ## Management Commands
@@ -226,7 +226,7 @@ docker ps -a
 ```bash
 # Test connectivity
 ping 10.0.0.188  # from frontend
-ping 10.0.0.237  # from backend
+ping 10.0.0.241  # from backend
 
 # Check security list rules in Oracle Cloud Console
 # Ensure ports 3000 and 5000 are allowed from 10.0.0.0/16

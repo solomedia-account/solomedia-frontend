@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # SoloMedia Frontend Deployment Script for Oracle Cloud VM
-# Frontend VM: Public IP 145.241.103.133, Private IP 10.0.0.237
+# Frontend VM: Public IP 84.12.90.176, Private IP 10.0.0.241
 # Backend Private IP: 10.0.0.188
 
 set -e
@@ -45,6 +45,7 @@ docker run -d \
   -p 3000:3000 \
   -e NEXT_PUBLIC_API_URL=http://10.0.0.188:5000/api \
   -e NODE_ENV=production \
+  -e NODE_OPTIONS=--max-old-space-size=768 \
   --restart unless-stopped \
   solomedia-frontend
 

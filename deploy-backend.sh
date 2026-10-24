@@ -2,6 +2,7 @@
 
 # SoloMedia Backend Deployment Script for Oracle Cloud VM
 # Backend VM: Public IP 84.12.90.85, Private IP 10.0.0.188
+# Frontend VM: Public IP 84.12.90.176, Private IP 10.0.0.241
 
 set -e
 
@@ -43,6 +44,7 @@ docker run -d \
   --name solomedia-backend \
   -p 5000:5000 \
   --env-file .env \
+  -e NODE_OPTIONS=--max-old-space-size=768 \
   --restart unless-stopped \
   solomedia-backend
 
