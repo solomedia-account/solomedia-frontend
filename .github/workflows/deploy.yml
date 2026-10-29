@@ -31,6 +31,12 @@ jobs:
             # Remove old image to free up space
             docker rmi solomedia-frontend || true
 
+            # Clean up build cache and unused resources
+            docker system prune -af || true
+
+            # Remove any cached .next directory if it exists
+            rm -rf .next || true
+
             # Build new image with API URL
             docker build --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} -t solomedia-frontend .
 
