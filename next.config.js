@@ -8,6 +8,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    domains: ['res.cloudinary.com', 'images.unsplash.com', 'images.pexels.com', 'www.pexels.com'],
     remotePatterns: [
       {
         protocol: 'https',
