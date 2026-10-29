@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Facebook, Instagram, Linkedin, Mail, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
@@ -10,16 +9,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="relative w-12 h-12">
-                <Image
-                  src="/logo.jpg"
-                  alt="SoloMedia"
-                  fill
-                  className="object-contain"
-                  width={48}
-                  height={48}
-                />
-              </div>
+              <img
+                src="/logo.jpg"
+                alt="SoloMedia"
+                className="w-12 h-12 object-contain"
+              />
               <span className="text-2xl font-display font-bold text-mag-white tracking-tight">
                 SOLO<span className="text-mag-accent">MEDIA</span>
               </span>

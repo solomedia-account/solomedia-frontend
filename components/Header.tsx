@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Menu, Search, User, Bell, LogOut, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState, useEffect, memo } from 'react';
@@ -42,18 +41,11 @@ function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <div className="relative w-16 h-16">
-              <Image
-                src="/logo.jpg"
-                alt="SoloMedia"
-                fill
-                className="object-contain transition-transform duration-300 group-hover:scale-110"
-                sizes="64px"
-                priority
-                width={64}
-                height={64}
-              />
-            </div>
+            <img
+              src="/logo.jpg"
+              alt="SoloMedia"
+              className="w-16 h-16 object-contain transition-transform duration-300 group-hover:scale-110"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center space-x-1 flex-nowrap">
