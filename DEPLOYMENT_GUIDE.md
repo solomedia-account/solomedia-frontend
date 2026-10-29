@@ -283,7 +283,7 @@ docker stats
 2. **Configure domain names** pointing to your public IPs
 3. **Set up monitoring** using Oracle Cloud Monitoring
 4. **Configure backups** for your database
-5. **Set up CI/CD** pipeline for automated deployments
+5. **Set up CI/CD** pipeline for automated deployments (see [CI_CD_SETUP.md](./CI_CD_SETUP.md))
 
 ## Cost Monitoring
 
