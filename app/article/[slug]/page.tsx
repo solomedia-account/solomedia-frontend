@@ -1,7 +1,6 @@
 import ArticleCard from '@/components/ArticleCard';
 import { api } from '@/lib/api';
 import { Calendar, Eye, Share2, Bookmark } from 'lucide-react';
-import Image from 'next/image';
 import { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -92,15 +91,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         <article className="bg-gray-950">
           {article.featuredImage && (
             <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[70vh]">
-              <Image
+              <img
                 src={article.featuredImage}
                 alt={article.title}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                priority
-                width={1200}
-                height={630}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="eager"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent" />
               

@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, memo, useMemo } from 'react';
 import { articlesApi } from '@/lib/api';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Clock, Eye } from 'lucide-react';
 
 interface CategoryDropdownProps {
@@ -71,12 +70,10 @@ function CategoryDropdown({ categoryId, isOpen, onClose }: CategoryDropdownProps
                   {/* Featured Image */}
                   {article.featuredImage && (
                     <div className="relative h-48 overflow-hidden">
-                      <Image
+                      <img
                         src={article.featuredImage}
                         alt={article.title}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
