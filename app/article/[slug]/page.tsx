@@ -98,6 +98,8 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 loading="eager"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent" />
+            </div>
+          )}
               
               {/* Overlay Content */}
               <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 pb-8 md:pb-12">
