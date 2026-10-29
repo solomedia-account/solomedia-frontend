@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Clock, Eye, ArrowUpRight } from 'lucide-react';
 
@@ -60,15 +59,11 @@ export default function StoryCarousel({ articles }: StoryCarouselProps) {
           {/* Background Image */}
           {article.featuredImage && (
             <div className="absolute inset-0">
-              <Image
+              <img
                 src={article.featuredImage}
                 alt={article.title}
-                fill
-                sizes="100vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-1000"
-                priority={index === 0}
-                width={1920}
-                height={700}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                loading={index === 0 ? 'eager' : 'lazy'}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-mag-black via-mag-black/60 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-mag-black/80 via-transparent to-transparent" />

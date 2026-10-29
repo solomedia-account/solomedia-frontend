@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Eye, ArrowRight } from 'lucide-react';
 
@@ -30,15 +29,12 @@ export default function ParallaxSection({ article }: ParallaxSectionProps) {
       {/* Parallax Background */}
       <div className="absolute inset-0">
         {article.featuredImage && (
-          <Image
+          <img
             src={article.featuredImage}
             alt={article.title}
-            fill
-            sizes="100vw"
-            className="object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
             style={{ transform: 'scale(1.1)' }}
-            width={1920}
-            height={500}
+            loading="lazy"
           />
         )}
         <div className="absolute inset-0 bg-black/60" />

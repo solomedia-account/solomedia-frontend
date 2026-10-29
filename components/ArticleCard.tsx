@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Eye, ArrowUpRight } from 'lucide-react';
 import { memo, useMemo } from 'react';
@@ -41,15 +40,11 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
         <div className="relative h-[500px] w-full overflow-hidden magazine-card">
           <div className="absolute inset-0 bg-gradient-to-t from-mag-black via-mag-black/50 to-transparent z-10" />
           {article.featuredImage ? (
-            <Image
+            <img
               src={article.featuredImage}
               alt={article.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover group-hover:scale-110 transition-transform duration-700"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
-              width={800}
-              height={500}
             />
           ) : (
             <div className="w-full h-full bg-mag-black-light" />
@@ -86,15 +81,11 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
       <div className="magazine-card">
         <div className="relative h-64 w-full overflow-hidden">
           {article.featuredImage ? (
-            <Image
+            <img
               src={article.featuredImage}
               alt={article.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              className="object-cover group-hover:scale-110 transition-transform duration-700"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
-              width={400}
-              height={256}
             />
           ) : (
             <div className="w-full h-full bg-mag-black-light" />
@@ -115,11 +106,10 @@ function ArticleCard({ article, featured = false }: ArticleCardProps) {
             <div className="flex items-center space-x-3">
               {article.author.avatar && (
                 <div className="w-8 h-8 rounded-full bg-mag-black-light overflow-hidden border-2 border-mag-accent">
-                  <Image
+                  <img
                     src={article.author.avatar}
                     alt={article.author.name}
-                    width={32}
-                    height={32}
+                    className="w-full h-full object-cover"
                     loading="lazy"
                   />
                 </div>
