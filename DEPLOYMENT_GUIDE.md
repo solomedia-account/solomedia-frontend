@@ -12,8 +12,8 @@ Backend VM:
   Port: 5000
 
 Frontend VM:
-  Public IP: 84.12.90.176
-  Private IP: 10.0.0.241
+  Public IP: 84.8.131.97
+  Private IP: 10.0.0.19
   Port: 3000
 ```
 
@@ -24,7 +24,7 @@ Frontend VM:
 - ✅ Updated `backend/Dockerfile` to use `npm ci --only=production` for production builds
 
 ### 2. Frontend Configuration
-- ✅ Updated `frontend/.env.example` with `NEXT_PUBLIC_API_URL=http://10.0.0.188:5000/api`
+- ✅ Updated `frontend/.env.example` with `NEXT_PUBLIC_API_URL=http://84.12.90.85:5000/api` (public IP for browser access)
 - ✅ Updated `frontend/Dockerfile` to use multi-stage build for production
 
 ### 3. Deployment Scripts
@@ -106,7 +106,7 @@ Frontend VM:
 
 1. **SSH into Frontend VM**
    ```bash
-   ssh ubuntu@84.12.90.176
+   ssh ubuntu@84.8.131.97
    ```
 
 2. **Clone or Upload Code**
@@ -116,7 +116,7 @@ Frontend VM:
    git clone <your-repo-url> solomedia
 
    # Option B: Upload via scp (from your local machine)
-   scp -r /path/to/solomedia ubuntu@84.12.90.176:~/
+   scp -r /path/to/solomedia ubuntu@84.8.131.97:~/
    ```
 
 3. **Make Deployment Script Executable**
@@ -139,7 +139,7 @@ Frontend VM:
    docker logs -f solomedia-frontend
 
    # Test from local machine
-   curl http://84.12.90.176:3000
+   curl http://84.8.131.97:3000
    ```
 
 ### Step 3: Test Full Stack
@@ -165,7 +165,7 @@ Frontend VM:
    ```
 
 4. **Access in Browser**
-   - Frontend: http://84.12.90.176:3000
+   - Frontend: http://84.8.131.97:3000
    - Backend API: http://84.12.90.85:5000
 
 ## Management Commands

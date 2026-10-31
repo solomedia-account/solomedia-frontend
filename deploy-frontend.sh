@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # SoloMedia Frontend Deployment Script for Oracle Cloud VM
-# Frontend VM: Public IP 84.12.90.176, Private IP 10.0.0.241
-# Backend Private IP: 10.0.0.188
+# Frontend VM: Public IP 84.8.131.97, Private IP 10.0.0.19
+# Backend Public IP: 84.12.90.85, Private IP: 10.0.0.188
 
 set -e
 
@@ -36,14 +36,14 @@ docker rmi solomedia-frontend 2>/dev/null || true
 
 # Build new image
 echo "Building Docker image..."
-docker build -t solomedia-frontend .
+docker build --build-arg NEXT_PUBLIC_API_URL=http://84.12.90.85:5000/api -t solomedia-frontend .
 
-# Run container with backend URL
+# Run container with backend URL (using PUBLIC IP for browser access)
 echo "Starting container..."
 docker run -d \
   --name solomedia-frontend \
   -p 3000:3000 \
-  -e NEXT_PUBLIC_API_URL=http://10.0.0.188:5000/api \
+  -e NEXT_PUBLIC_API_URL=http://84.12.90.85:5000/api \
   -e NODE_ENV=production \
   -e NODE_OPTIONS=--max-old-space-size=768 \
   --restart unless-stopped \
@@ -63,6 +63,6 @@ docker logs --tail 20 solomedia-frontend
 
 echo "=== Frontend deployment complete ==="
 echo "Frontend is running on port 3000"
-echo "Public IP: 145.241.103.133"
-echo "Private IP: 10.0.0.237"
-echo "Backend URL: http://10.0.0.188:5000/api"
+echo "Public IP: 84.8.131.97"
+echo "Private IP: 10.0.0.19"
+echo "Backend URL: http://84.12.90.85:5000/api"
