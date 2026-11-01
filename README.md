@@ -14,11 +14,12 @@ A modern media platform dedicated to African culture and diaspora stories, cover
 SoloMedia is built with a separated frontend and backend architecture:
 
 ### Backend (Node.js/Express)
-- REST API with MongoDB
+- REST API with MySQL/Aiven database
 - JWT authentication
 - Role-based access control (admin, editor, author, subscriber)
 - Article and category management
 - User management system
+- Cloudinary for image/video uploads
 
 ### Frontend (Next.js 14)
 - Server-side rendering with Next.js App Router
@@ -32,11 +33,11 @@ SoloMedia is built with a separated frontend and backend architecture:
 ```
 solomedia/
 ├── backend/                 # Node.js/Express API
-│   ├── models/             # MongoDB models
+│   ├── models/             # Sequelize models
 │   ├── routes/             # API routes
 │   ├── middleware/         # Express middleware
 │   ├── server.js           # Entry point
-│   ├── seed.js             # Database seed script
+│   ├── Dockerfile          # Production container
 │   └── package.json
 │
 ├── frontend/               # Next.js frontend
@@ -44,6 +45,7 @@ solomedia/
 │   ├── components/         # React components
 │   ├── lib/                # Utility functions
 │   ├── public/             # Static assets
+│   ├── Dockerfile          # Production container
 │   └── package.json
 │
 └── README.md
@@ -53,7 +55,7 @@ solomedia/
 
 ### Prerequisites
 - Node.js (v18 or higher)
-- MongoDB (local installation or MongoDB Atlas)
+- MySQL database (Aiven or local)
 - npm or yarn
 
 ### Backend Setup
@@ -76,17 +78,17 @@ cp .env.example .env
 4. Configure your `.env` file:
 ```
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/solomedia
+FRONTEND_URL=http://localhost:3000
 JWT_SECRET=your_jwt_secret_key_here
 NODE_ENV=development
+DB_HOST=your_db_host
+DB_PORT=your_db_port
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_NAME=your_db_name
 ```
 
-5. Seed the database (optional):
-```bash
-node seed.js
-```
-
-6. Start the backend server:
+5. Start the backend server:
 ```bash
 npm run dev
 ```
@@ -107,10 +109,16 @@ npm install
 
 3. Create environment file:
 ```bash
-cp .env.local.example .env.local
+cp .env.example .env
 ```
 
-4. Start the development server:
+4. Configure your `.env` file:
+```
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NODE_ENV=development
+```
+
+5. Start the development server:
 ```bash
 npm run dev
 ```
@@ -159,17 +167,19 @@ The frontend will be available at `http://localhost:3000`
 - User authentication and authorization
 - Modern UI with black and yellow branding
 - SEO-friendly with Next.js SSR
-- Fast page loads with optimized images
+- Cloudinary image uploads
+- IndexNow for search engine indexing
 
 ## 🛠️ Tech Stack
 
 ### Backend
 - Node.js
 - Express.js
-- MongoDB with Mongoose
+- MySQL with Sequelize
 - JWT for authentication
 - bcryptjs for password hashing
 - cors for cross-origin requests
+- Cloudinary for media uploads
 
 ### Frontend
 - Next.js 14 (App Router)
@@ -177,7 +187,6 @@ The frontend will be available at `http://localhost:3000`
 - TypeScript
 - TailwindCSS
 - Lucide React (icons)
-- Axios (API client)
 
 ## 📝 Development
 
@@ -214,17 +223,21 @@ npm start
 
 ## 🌐 Deployment
 
-### Backend Deployment
-- Deploy to Vercel, Railway, or any Node.js hosting
-- Set environment variables
-- Ensure MongoDB connection string is configured
+See `DEPLOYMENT_GUIDE.md` for detailed deployment instructions to Oracle Cloud VMs.
 
-### Frontend Deployment
-- Deploy to Vercel (recommended for Next.js)
-- Set `NEXT_PUBLIC_API_URL` to production backend URL
-- Build and deploy
+### Quick Deploy Commands
 
-## 📄 License
+Backend:
+```bash
+./deploy-backend.sh
+```
+
+Frontend:
+```bash
+./deploy-frontend.sh
+```
+
+## � License
 
 This project is licensed under the ISC License.
 
@@ -232,6 +245,6 @@ This project is licensed under the ISC License.
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📧 Contact
+## � Contact
 
 For inquiries, contact admin@solomedia.com

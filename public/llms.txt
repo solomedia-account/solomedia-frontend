@@ -1,0 +1,55 @@
+# SoloMedia - African Culture & Diaspora Platform
+
+SoloMedia is a premier entertainment and content production company specializing in Fashion, Modeling, and Acting for the African diaspora. We bridge the gap between creative talent and global audiences through our digital studio.
+
+## Overview
+SoloMedia produces high-impact Film, Documentary, Music, TV series, Radio, and Digital content. We offer flexible access to industry expertise through complimentary foundational courses and premium monthly subscriptions to our curated Lifestyle Magazines.
+
+## Key Topics
+- African Fashion & Design
+- Arts & Culture
+- Music & Entertainment
+- Film & Television
+- Technology & Innovation
+- Investment & Business
+- Diaspora Community Stories
+
+## Content Structure
+- **Articles**: In-depth stories covering African culture, business, politics, sports, and entertainment
+- **Categories**: Organized content by topic (Fashion, Arts, Music, Film, Technology, Investor Relations)
+- **Author Profiles**: Featuring diverse voices from the African diaspora
+- **News & Updates**: Latest developments in African industries and diaspora communities
+
+## Target Audience
+- African diaspora community members
+- Creative professionals in fashion, arts, and entertainment
+- Investors interested in African markets
+- Cultural enthusiasts and researchers
+- Media industry professionals
+
+## Unique Value Proposition
+- Authentic Afrocentric content and storytelling
+- Bridge between African creative talent and global audiences
+- Educational resources and industry expertise
+- Community-driven platform for diaspora voices
+- Focus on sustainable socio-economic growth
+
+## Contact & Resources
+- Website: https://solomedia.onrender.com
+- Email: solomonchi96@gmail.com
+- Location: Up Station, Bamenda, Cameroon
+- WhatsApp: +23408148525199
+
+## API Integration
+The platform is built with a modern tech stack:
+- Frontend: Next.js 14, React, TypeScript, Tailwind CSS
+- Backend: Node.js, Express, Sequelize ORM
+- Database: Aiven MySQL
+- Hosting: Render.com
+
+## Content Guidelines
+- Focus on authentic African narratives
+- Highlight diaspora success stories
+- Provide actionable business and investment insights
+- Celebrate cultural achievements and innovations
+- Maintain professional, journalistic standards
