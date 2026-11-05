@@ -19,14 +19,14 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: 'SoloMedia - African Culture & Diaspora',
-    template: '%s | SoloMedia'
+    default: 'SoloMedia Network - African Stories, Global Impact',
+    template: '%s | SoloMedia Network'
   },
-  description: 'Your destination for African fashion, arts, music, film, entertainment, technology and investor dynamics for blacks in the diaspora.',
-  keywords: ['African culture', 'diaspora', 'African fashion', 'African music', 'African film', 'African entertainment', 'African technology', 'black diaspora', 'African arts', 'investor relations'],
-  authors: [{ name: 'SoloMedia' }],
-  creator: 'SoloMedia',
-  publisher: 'SoloMedia',
+  description: 'SoloMedia Network bridges the gap between Africa and the diaspora. Discover authentic African stories, culture, innovation, and opportunities that unite the continent with the world. From Lagos to London, Nairobi to New York - we are the voice of Africa, everywhere.',
+  keywords: ['African culture', 'diaspora', 'African fashion', 'African music', 'African film', 'African entertainment', 'African technology', 'black diaspora', 'African arts', 'investor relations', 'African innovation', 'African business', 'pan-African', 'African diaspora stories'],
+  authors: [{ name: 'SoloMedia Network' }],
+  creator: 'SoloMedia Network',
+  publisher: 'SoloMedia Network',
   robots: {
     index: true,
     follow: true,
@@ -41,23 +41,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://solomedia.onrender.com',
-    siteName: 'SoloMedia',
-    title: 'SoloMedia - African Culture & Diaspora',
-    description: 'Your destination for African fashion, arts, music, film, entertainment, technology and investor dynamics for blacks in the diaspora.',
+    url: 'https://solomedianet.com',
+    siteName: 'SoloMedia Network',
+    title: 'SoloMedia Network - African Stories, Global Impact',
+    description: 'SoloMedia Network bridges the gap between Africa and the diaspora. Discover authentic African stories, culture, innovation, and opportunities that unite the continent with the world. From Lagos to London, Nairobi to New York - we are the voice of Africa, everywhere.',
     images: [
       {
         url: '/logo.jpg',
         width: 1200,
         height: 630,
-        alt: 'SoloMedia',
+        alt: 'SoloMedia Network',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SoloMedia - African Culture & Diaspora',
-    description: 'Your destination for African fashion, arts, music, film, entertainment, technology and investor dynamics for blacks in the diaspora.',
+    title: 'SoloMedia Network - African Stories, Global Impact',
+    description: 'SoloMedia Network bridges the gap between Africa and the diaspora. Discover authentic African stories, culture, innovation, and opportunities that unite the continent with the world.',
     images: ['/logo.jpg'],
     creator: '@solomagofficial',
   },
@@ -69,9 +69,6 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   verification: {
     google: 'iQr8CzYovgfJ7ywiHjkmnpgU7JPvRM0nYpJN41w63jY',
-  },
-  other: {
-    'google-site-verification': '_wKEIuy020-rByWEZ2cYHF4AALvrBK8px7k4IbabWjA',
   },
 }
 

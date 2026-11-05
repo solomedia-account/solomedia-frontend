@@ -14,12 +14,12 @@ const ParallaxSection = dynamic(() => import('@/components/ParallaxSection'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics. SoloMedia brings you stories from the African diaspora.',
+  title: 'Home | SoloMedia Network',
+  description: 'Your daily dose of African excellence. SoloMedia Network brings you the pulse of the continent - from groundbreaking innovations and cultural movements to investment opportunities reshaping Africa\'s future. Stay connected to the motherland, wherever you are.',
   openGraph: {
-    title: 'SoloMedia - Home',
-    description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics.',
-    url: 'https://solomedia.onrender.com',
+    title: 'Home | SoloMedia Network',
+    description: 'Your daily dose of African excellence. SoloMedia Network brings you the pulse of the continent - from groundbreaking innovations and cultural movements to investment opportunities reshaping Africa\'s future.',
+    url: 'https://solomedianet.com',
   },
 };
 

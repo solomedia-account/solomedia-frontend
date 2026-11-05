@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Facebook, Instagram, Linkedin, Mail, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
@@ -10,20 +9,17 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="relative w-12 h-12">
-                <Image
-                  src="/logo.jpg"
-                  alt="SoloMedia"
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              <img
+                src="/logo.jpg"
+                alt="SoloMedia Network"
+                className="w-12 h-12 object-contain"
+              />
               <span className="text-2xl font-display font-bold text-mag-white tracking-tight">
-                SOLO<span className="text-mag-accent">MEDIA</span>
+                SOLO<span className="text-mag-accent">MEDIA</span> NETWORK
               </span>
             </div>
             <p className="text-mag-gray text-base">
-              Your destination for African culture and diaspora stories.
+              Bridging Africa and the diaspora through stories that inspire, connect, and celebrate our excellence.
             </p>
             <div className="flex space-x-4">
               <a 
@@ -103,7 +99,7 @@ export default function Footer() {
           {/* Newsletter */}
           <div>
             <h3 className="text-mag-white font-display font-bold text-lg mb-6 uppercase tracking-wider">Newsletter</h3>
-            <p className="text-mag-gray text-base mb-6">Stay updated with the latest stories from the diaspora.</p>
+            <p className="text-mag-gray text-base mb-6">Stay connected to the pulse of Africa - stories, culture, and opportunities delivered to your inbox.</p>
             <div className="flex space-x-3">
               <input
                 type="email"
@@ -118,7 +114,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-mag-gray-light/20 mt-12 pt-8 text-center text-mag-gray text-sm">
-          <p>&copy; 2024 SoloMedia. All rights reserved.</p>
+          <p>&copy; 2024 SoloMedia Network. All rights reserved.</p>
         </div>
       </div>
     </footer>

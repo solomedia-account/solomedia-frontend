@@ -1,13 +1,14 @@
 import { Target, Globe, BookOpen, Users, TrendingUp, Award } from 'lucide-react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Learn about SoloMedia - Premier entertainment and content production company specializing in Fashion, Modeling, and Acting for the African diaspora.',
+  title: 'About Us | SoloMedia Network',
+  description: 'SoloMedia Network is the premier digital platform connecting Africa with the global diaspora. We celebrate African excellence through compelling storytelling, cultural preservation, and showcasing the innovation driving the continent\'s future. Discover who we are and our mission to amplify African voices worldwide.',
   openGraph: {
-    title: 'About SoloMedia',
-    description: 'Learn about SoloMedia - Premier entertainment and content production company specializing in Fashion, Modeling, and Acting.',
-    url: 'https://solomedia.onrender.com/about',
+    title: 'About Us | SoloMedia Network',
+    description: 'SoloMedia Network is the premier digital platform connecting Africa with the global diaspora. We celebrate African excellence through compelling storytelling and cultural preservation.',
+    url: 'https://solomedianet.com/about',
   },
 };
 
@@ -20,10 +21,10 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl">
             <h1 className="text-hero md:text-[clamp(3rem, 10vw, 6rem)] font-display font-bold text-mag-white mb-6 leading-tight animate-slide-up">
-              About SoloMedia
+              About SoloMedia Network
             </h1>
             <p className="text-xl md:text-2xl text-mag-gray-light max-w-3xl animate-slide-up" style={{ animationDelay: '100ms' }}>
-              Premier entertainment and content production company specializing in Fashion, Modeling, and Acting
+              Your bridge between Africa and the diaspora. Celebrating our stories, amplifying our voices, connecting our world.
             </p>
           </div>
         </div>
@@ -40,10 +41,10 @@ export default function AboutPage() {
               </h2>
             </div>
             <p className="text-lg text-mag-gray-light leading-relaxed mb-6">
-              SoloMedia is a premier entertainment and content production company specializing in Fashion, Modeling, and Acting. We bridge the gap between creative talent and global audiences through our digital studio, producing high-impact Film, Documentary, Music, TV series, Radio, and Digital content.
+              SoloMedia Network is more than a media platform - we are a movement. From the bustling streets of Lagos to the creative hubs of London, from the innovation centers of Nairobi to the cultural melting pots of New York, we tell the stories that unite Africans at home and abroad. We celebrate our heritage, showcase our achievements, and inspire the next generation of African excellence.
             </p>
             <p className="text-lg text-mag-gray-light leading-relaxed">
-              We offer flexible access to industry expertise—complimentary foundational courses led by seasoned professionals, alongside a premium monthly subscription to our curated Lifestyle Magazines. Our diverse portfolio extends beyond content creation to include Artist Management, Advertising, Publishing, Copyright & Legal Support, and Executive Coaching.
+              Whether you're an African seeking authentic stories from the continent, or a diaspora member looking to stay connected to your roots, SoloMedia Network is your home. We deliver compelling content that educates, entertains, and empowers - because our stories deserve to be told, our voices deserve to be heard, and our future deserves to be celebrated.
             </p>
           </div>
         </div>
@@ -109,11 +110,11 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-mag-black/10"></div>
               <div className="relative z-10">
                 <Target size={64} className="text-mag-white mx-auto mb-8" />
-                <h2 className="text-hero font-display font-bold text-mag-white mb-8 uppercase tracking-tight">
+                <h2 className="text-2xl font-display font-bold text-mag-white mb-4 uppercase tracking-tight">
                   Our Mission
                 </h2>
                 <p className="text-xl md:text-2xl text-mag-white/90 font-body leading-relaxed max-w-3xl mx-auto">
-                  To become the leading publisher of authentic Afrocentric content, driving sustainable socio-economic growth by showcasing the continent's rich narrative across Business, Politics, Sports, Investment, and Culture.
+                  To be the voice that bridges Africa and the diaspora - telling our stories, celebrating our culture, and showcasing the innovation and excellence defining our continent's future. We are building a world where every African story matters, every African voice resonates, and every African dream has a platform.
                 </p>
               </div>
             </div>
