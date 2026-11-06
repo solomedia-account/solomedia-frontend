@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Careers - SoloMedia',
     description: 'Join the SoloMedia team and help shape narratives that connect Africa to the world.',
-    url: 'https://solomedia.onrender.com/careers',
+    url: 'https://solomedianet.com/careers',
   },
 };
 

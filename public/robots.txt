@@ -8,4 +8,4 @@ Disallow: /admin/
 Disallow: /private/
 
 # Sitemap location
-Sitemap: https://solomedia.onrender.com/sitemap.xml
+Sitemap: https://solomedianet.com/sitemap.xml

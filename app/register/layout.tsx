@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Create Account - SoloMedia',
     description: 'Join SoloMedia community to share your stories, connect with the African diaspora, and contribute to our growing platform.',
-    url: 'https://solomedia.onrender.com/register',
+    url: 'https://solomedianet.com/register',
   },
 };
 

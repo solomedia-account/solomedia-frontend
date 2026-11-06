@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'My Profile - SoloMedia',
     description: 'Manage your SoloMedia profile, update your personal information, and customize your public profile settings.',
-    url: 'https://solomedia.onrender.com/profile',
+    url: 'https://solomedianet.com/profile',
   },
 };
 

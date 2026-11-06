@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://solomedia.onrender.com',
+    url: 'https://solomedianet.com',
     siteName: 'SoloMedia',
     title: 'SoloMedia - African Culture & Diaspora',
     description: 'Your destination for African fashion, arts, music, film, entertainment, technology and investor dynamics for blacks in the diaspora.',

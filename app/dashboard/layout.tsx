@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Dashboard - SoloMedia',
     description: 'Access your SoloMedia dashboard to manage your articles, view analytics, and control your account settings.',
-    url: 'https://solomedia.onrender.com/dashboard',
+    url: 'https://solomedianet.com/dashboard',
   },
 };
 

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SoloMedia - African Culture & Diaspora | Home',
     description: 'Explore the latest in African fashion, arts, music, film, entertainment, technology and investor dynamics.',
-    url: 'https://solomedia.onrender.com',
+    url: 'https://solomedianet.com',
   },
 };
 

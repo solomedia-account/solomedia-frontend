@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact Us - SoloMedia',
     description: 'Get in touch with SoloMedia for general inquiries, support, talent verification, and special requests. We are here to help.',
-    url: 'https://solomedia.onrender.com/contact',
+    url: 'https://solomedianet.com/contact',
   },
 };
 

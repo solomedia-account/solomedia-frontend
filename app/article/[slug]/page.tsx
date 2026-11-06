@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: article.title,
       description: article.excerpt || article.content?.substring(0, 160),
-      url: `https://solomedia.onrender.com/article/${article.slug}`,
+      url: `https://solomedianet.com/article/${article.slug}`,
       images: article.featuredImage ? [
         {
           url: article.featuredImage,

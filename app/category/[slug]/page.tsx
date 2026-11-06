@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: `${category.name} - SoloMedia`,
       description: category.description || `Explore ${category.name} articles and stories from the African diaspora on SoloMedia.`,
-      url: `https://solomedia.onrender.com/category/${category.slug}`,
+      url: `https://solomedianet.com/category/${category.slug}`,
     },
   };
 }

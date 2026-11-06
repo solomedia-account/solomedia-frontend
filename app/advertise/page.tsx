@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Advertise with SoloMedia',
     description: 'Put your brand in front of Africa\'s most influential decision-makers in the diaspora.',
-    url: 'https://solomedia.onrender.com/advertise',
+    url: 'https://solomedianet.com/advertise',
   },
 };
 

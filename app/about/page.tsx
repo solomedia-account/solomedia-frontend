@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About SoloMedia',
     description: 'Learn about SoloMedia - Premier entertainment and content production company specializing in Fashion, Modeling, and Acting.',
-    url: 'https://solomedia.onrender.com/about',
+    url: 'https://solomedianet.com/about',
   },
 };
 
